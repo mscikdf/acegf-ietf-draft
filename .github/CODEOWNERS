@@ -1,0 +1,4 @@
+# Automatically generated CODEOWNERS
+# Regenerate with `make update-codeowners`
+draft-todo-yourname-protocol.md jason@mscikdf.com
+draft-wang-acegf-protocol.md jason@aceft.org
