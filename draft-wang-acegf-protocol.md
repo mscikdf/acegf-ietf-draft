@@ -21,7 +21,7 @@ author:
  -
     fullname: Jian Sheng Wang
     organization: Independent Researcher
-    email: jason@aceft.org
+    email: jason@mscikdf.com
 
 normative:
 
@@ -271,20 +271,32 @@ To resist offline brute-force attacks, ACE-GF utilizes the Argon2id
 algorithm [RFC9106] for stretching user-provided credentials (Cred) into
 a symmetric sealing key (K_seal).
 
+The specific mechanism by which `auth_index` is bound into the sealing
+key derivation is an implementation detail, provided that distinct
+values of `auth_index` result in cryptographically independent
+sealing keys.
+
 * **Algorithm Selection**: Implementations MUST use the Argon2id variant
 (as opposed to Argon2i or Argon2d) to provide optimized protection
 against both side-channel attacks and GPU-based cracking.
 * **Parameter Negotiation**: Implementations SHOULD support pre-defined
 Sealing Profiles that specify memory cost (M), time iterations (T),
 and parallelism (P).
-* **Salt**: Each Sealed Artifact (SA) MUST include a unique 128-bit
-random salt to ensure that identical credentials result in unique
-sealing keys.
+* **Salt**: Each Sealed Artifact (SA) MUST include a 128-bit random
+salt sampled from a CSPRNG. For the purpose of binding the authorization
+epoch, the salt input to the Argon2id function MUST be a 20-byte
+sequence, constructed by concatenating the 16-byte random salt and
+the 4-byte Big-Endian representation of the auth_index.
 
 ## AEAD: Sealing Encryption (AES-GCM-SIV)
 
 ACE-GF employs AES-GCM-SIV [RFC8452] for the authenticated encryption
 of the Root Entropy Value (REV).
+
+AES-256-GCM-SIV is used exclusively for authorization sealing of the
+Root Entropy Value (REV). It is not part of the Derive operation and
+does not correspond to any AlgID value in the Context Identifier
+Registry.
 
 * **Misuse Resistance**: AES-GCM-SIV is selected for its Synthetic
 Initialization Vector (SIV) properties. In the specific context of
@@ -303,6 +315,17 @@ high-fidelity hardware Random Number Generators (RNG) during every
 sealing operation.
 * **Data Structure**: The encryption process MUST produce a 256-bit
 ciphertext and a 128-bit authentication tag.
+* **Additional Authenticated Data (AAD)**: To ensure the integrity of
+the authorization metadata, the AEAD encryption MUST supply the first
+10 bytes of the Sealed Artifact (SA) as Additional Authenticated Data.
+This AAD string consists of the Magic Number (4 bytes), Version
+(1 byte), ProfileID (1 byte), and auth_index (4 bytes).
+* **Authenticated Metadata Binding**: Implementations MUST supply the
+Authorization Index (`auth_index`) as Additional Authenticated Data
+(AAD) to AES-256-GCM-SIV. This ensures that any modification of
+authorization metadata results in authentication failure during
+unsealing. Failure to bind `auth_index` via AAD constitutes a violation
+of this specification.
 
 ## KDF2: Key Derivation (HKDF-SHA256)
 
@@ -368,23 +391,32 @@ persistent Sealed Artifact (SA) using an Authorization Credential.
 - **Authorization Credential (Cred)**: Secret material used to derive
 the sealing key.
 - **Sealing Profile**: Identifies the Argon2id parameters to be used.
+- **Authorization Index (auth_index)**: A non-negative integer
+identifying the logical authorization epoch associated with this
+Sealed Artifact.
+
+The Authorization Index (`auth_index`) is not a user-supplied secret and is
+intended to be managed transparently by implementations. Its value is carried
+within the Sealed Artifact and SHOULD NOT require manual tracking by users.
 
 ### Outputs
 
 - **Sealed Artifact (SA)**: A serialized artifact containing the
-encrypted REV and associated metadata.
+encrypted REV, authorization metadata, and associated parameters.
 - **Error**: On failure.
 
 ### Processing Steps
 
 1. Generate or select a 128-bit random Salt.
-2. Derive the sealing key `K_seal` using Argon2id with the provided
-Credential, Salt, and parameters defined by the selected Sealing
-Profile.
+2. Derive the sealing key `K_seal` using Argon2id. The `salt` parameter
+input to Argon2id MUST be the 20-byte concatenation:
+`Salt (16 bytes) || auth_index (4 bytes, Big-Endian).`
 3. Encrypt the REV using AES-256-GCM-SIV with `K_seal` and the fixed
-nonce `N_fixed`.
+nonce `N_fixed`. The `AAD` input MUST be the 10-byte sequence:
+`Magic || Version || ProfileID || auth_index`.
 4. Construct the Sealed Artifact (SA) by concatenating the Magic
-Number, Version, ProfileID, Salt, Ciphertext, and Authentication Tag.
+Number, Version, ProfileID, `auth_index`, Salt, Ciphertext, and
+Authentication Tag, as specified in Section 6.1.
 5. Zeroize the REV from volatile memory after successful sealing.
 
 ### Error Conditions
@@ -392,6 +424,8 @@ Number, Version, ProfileID, Salt, Ciphertext, and Authentication Tag.
 - **InvalidREV**: The supplied REV does not meet length or format
 requirements.
 - **ProfileUnsupported**: The specified Sealing Profile is not supported.
+- **InvalidAuthIndex**: The provided `auth_index` is malformed or
+unsupported.
 - **SealingFailure**: Encryption or key derivation fails.
 
 ### Error Handling Requirements
@@ -407,8 +441,8 @@ provided Sealed Artifact (SA) and Authorization Credential.
 
 ### Inputs
 
-- **Sealed Artifact (SA)**: A serialized artifact containing the encrypted
-REV and associated metadata.
+- **Sealed Artifact (SA)**: A serialized artifact containing the
+encrypted REV and associated metadata.
 - **Authorization Credential (Cred)**: User- or system-provided secret
 material required to derive the sealing key.
 
@@ -419,14 +453,18 @@ material required to derive the sealing key.
 
 ### Processing Steps
 
-1. **Parse**: Extract the Magic Number, Version, ProfileID, Salt, Ciphertext, and
-Authentication Tag from the SA. The Magic Number MUST be validated.
-Failure MUST result in InvalidFormat.
+1. **Parse**: Extract the Magic Number, Version, ProfileID,
+`auth_index`, Salt, Ciphertext, and Authentication Tag from the SA.
+The Magic Number and Version MUST be validated. Failure MUST result
+in `InvalidFormat`.
 2. **Derive**: Recompute the sealing key `K_seal` using the provided
-Credential, extracted Salt, and the parameters associated with the
-ProfileID.
+Credential, extracted Salt, `auth_index`, and the parameters
+associated with the ProfileID.
 3. **Decrypt**: Execute AES-256-GCM-SIV decryption on the Ciphertext using
 `K_seal`, the fixed nonce `N_fixed`, and the Authentication Tag.
+The same Additional Authenticated Data (AAD) used during sealing
+(`auth_index`, ProfileID, and Version) MUST be supplied. Authentication
+failure MUST result in an error.
 
 ### Error Conditions
 
@@ -434,6 +472,8 @@ ProfileID.
 - **InvalidFormat**: The SA cannot be parsed or contains unsupported
 version or profile identifiers.
 - **ProfileUnsupported**: The referenced ProfileID is not implemented.
+- **AuthorizationMismatch**: The derived sealing key does not match
+the authorization metadata embedded in the SA.
 
 ### Error Handling Requirements
 
@@ -461,8 +501,9 @@ usage domain, and key index.
 
 ### Processing Steps
 
-1. Perform HKDF-Extract using the REV as input key material to produce a
-pseudorandom key (PRK).
+1. Perform HKDF-Extract using the REV as the input key material (IKM)
+to produce a pseudorandom key (PRK). The `salt` parameter for
+HKDF-Extract MUST be a 32-byte string of all zeros.
 2. Perform HKDF-Expand using the PRK and the serialized Context Tuple
 (`Ctx`) as the `info` parameter to generate key material of the
 requested length.
@@ -484,26 +525,45 @@ complete.
 
 # Data Structures and Encodings
 
-## Sealed Artifact (SA) Binary Format
+## Sealed Artifact (SA) Binary Format (Version 0x02)
 
-The Sealed Artifact (SA) is a serialized byte array that contains all
-necessary metadata and encrypted data to reconstruct the Identity. All
-multi-byte fields MUST be encoded in Big-Endian (Network Byte Order).
-Implementations MUST reject any SA whose total length does not exactly
-match the expected length for the indicated Version.
+This section defines the binary encoding of the Sealed Artifact (SA)
+for protocol version 0x02. The SA encapsulates the encrypted Root
+Entropy Value (REV) together with all metadata required for deterministic
+reconstruction.
 
-The SA structure is defined as follows:
+All multi-byte integer fields MUST be encoded in Big-Endian (Network
+Byte Order). Implementations MUST reject any SA whose total length does
+not exactly match the expected length for the indicated Version.
 
-| Offset | Length | Field         | Description                          |
-|--------|--------|---------------|--------------------------------------|
-| 0      | 4      | Magic Number  | Fixed bytes: 0x41 0x43 0x45 0x00 ('ACE\0') |
-| 4      | 1      | Version       | Protocol version (currently 0x01)    |
-| 5      | 1      | Profile ID    | Identifier for Sealing Profile       |
-| 6      | 16     | Salt          | Random salt for Argon2id             |
-| 22     | 32     | Ciphertext    | AES-GCM-SIV encrypted REV            |
-| 54     | 16     | Tag           | Authentication Tag (MAC)             |
+### SA Binary Layout (Version 0x02)
 
-**Total Length: 70 Bytes.**
+| Offset | Length | Field        | Description |
+|--------|--------|--------------|-------------|
+| 0      | 4      | Magic Number | Fixed bytes: 0x41 0x43 0x45 0x00 ("ACE\\0") |
+| 4      | 1      | Version      | Protocol version (0x02) |
+| 5      | 1      | ProfileID    | Identifier for Sealing Profile |
+| 6      | 4      | auth_index   | Authorization Index (Unsigned 32-bit) |
+| 10     | 16     | Salt         | Random salt for Argon2id |
+| 26     | 32     | Ciphertext   | AES-256-GCM-SIV encrypted REV |
+| 58     | 16     | Tag          | Authentication Tag (MAC) |
+
+**Total Length: 74 bytes**
+
+### Field Semantics
+
+* **auth_index**:
+The Authorization Index represents an authorization epoch associated
+with the Sealed Artifact. Different values of `auth_index` under the
+same REV represent distinct authorization states. Implementations MUST
+ensure that Sealed Artifacts generated with different `auth_index`
+values are cryptographically independent and mutually non-decryptable.
+
+* **Backward Compatibility**:
+Version 0x01 Sealed Artifacts do not contain an `auth_index` field.
+Implementations MAY support Version 0x01 for backward compatibility
+but MUST NOT interpret missing `auth_index` values as equivalent to
+any specific authorization state.
 
 ## Sealing Profiles
 
@@ -527,11 +587,6 @@ algorithms, the `AlgID` field in the Context Tuple MUST use the following
 initial registry. This ensures that a key derived for Ed25519 cannot
 be mistakenly used or mathematically linked to a Secp256k1 key.
 
-The AES-256-GCM-SIV algorithm identifier is reserved exclusively for
-authorization sealing operations within ACE-GF. It MUST NOT be used as
-a general-purpose symmetric encryption context for application data,
-nor appear as an input to the Derive operation.
-
 Usage Domains describe the functional intent of derived key material
 and do not override algorithm-specific restrictions defined elsewhere
 in this document.
@@ -543,9 +598,8 @@ in this document.
 | 0x0001   | Ed25519              | RFC 8032  |
 | 0x0002   | Secp256k1 (ECDSA)    | SEC 2     |
 | 0x0003   | X25519 (Diffie-Hellman)| RFC 7748  |
-| 0x0004   | AES-256-GCM-SIV      | RFC 8452 |
-| 0x0005   | ML-DSA (Dilithium-PQC)| FIPS 204  |
-| 0x0006   | ML-KEM (Kyber-PQC)   | FIPS 203  |
+| 0x0004   | ML-DSA (Dilithium-PQC)| FIPS 204  |
+| 0x0005   | ML-KEM (Kyber-PQC)   | FIPS 203  |
 
 ### Usage Domains (Domain)
 
@@ -597,6 +651,21 @@ updated or rendered unavailable independently, while derived
 cryptographic identifiers remain stable as long as the REV remains
 reachable.
 
+### Sealed Artifact Persistence and Mobility
+
+The Sealed Artifact (SA) is a persistent, encrypted authorization artifact,
+not a cryptographic root. Possession of an SA alone does not enable identity
+reconstruction without the corresponding Authorization Credential.
+
+Because the SA contains no plaintext secret material and reveals no information
+about the Root Entropy Value (REV), it MAY be stored, replicated, and transported
+using untrusted storage mechanisms, including public cloud storage or
+distributed content-addressable systems.
+
+Loss of all copies of the SA renders the identity cryptographically unreachable.
+Applications SHOULD treat the SA as durable authorization metadata and apply
+backup and redundancy strategies appropriate to their threat model.
+
 ## Stateless Credential Rotation
 
 ACE-GF supports stateless credential rotation, allowing an entity to
@@ -621,6 +690,60 @@ maintaining the same REV.
 This operation is stateless with respect to identity semantics. No
 persistent state other than the updated SA is required, and no protocol-
 visible identity attributes are modified.
+
+## Logical Revocation via Authorization Index
+
+ACE-GF defines *logical revocation* as the ability to render a previously
+valid Sealed Artifact (SA) unusable without modifying the underlying
+Root Entropy Value (REV).
+
+An ACE-GF Identity is defined by the ability to reconstruct the REV.
+Logical revocation invalidates specific authorization states while
+preserving the identity itself and all derived cryptographic identifiers.
+
+### Mechanism
+
+Logical revocation is achieved by updating the Authorization Index
+(`auth_index`) and re-sealing the same REV:
+
+1.  The current SA is unsealed to reconstruct the REV in volatile memory.
+2.  The `auth_index` value is incremented or otherwise updated according
+to application policy.
+3.  The REV is re-sealed under the new `auth_index`, producing a new SA.
+4.  The previous SA is discarded or rendered inaccessible.
+
+Because `auth_index` is cryptographically bound into the sealing key
+derivation, any SA created under a prior authorization index becomes
+undecryptable once the active index changes.
+
+### Properties
+
+* Logical revocation does not require regeneration of the REV.
+* Logical revocation does not require identifier rotation (e.g.,
+blockchain address changes).
+* Logical revocation does not rely on external revocation infrastructure
+such as CRLs or OCSP.
+* The effect of logical revocation is immediate and purely
+cryptographic.
+
+### Scope and Policy
+
+This specification defines the cryptographic mechanism required to
+support logical revocation. Policies governing authorization index
+management, distribution of updated Sealed Artifacts, recovery
+procedures, and governance models are application-specific and out of
+scope.
+
+### Authorization Index Synchronization
+
+In multi-device or multi-instance deployments, applications are responsible for
+ensuring that the most recent Sealed Artifact is distributed to all authorized
+endpoints. Implementations SHOULD treat the Sealed Artifact as versioned
+authorization state and ensure that stale artifacts are replaced when
+authorization updates occur.
+
+The ACE-GF protocol does not require global state synchronization and does not
+define mechanisms for resolving concurrent authorization updates.
 
 ## Failure Modes and Recovery Considerations
 
@@ -789,10 +912,9 @@ Initial entries for this registry are as follows:
 | 0x0001    | Ed25519                 | RFC 8032  |
 | 0x0002    | Secp256k1               | SEC 2     |
 | 0x0003    | X25519                  | RFC 7748  |
-| 0x0004    | AES-256-GCM-SIV (Sealing Only)         | RFC 8452 |
-| 0x0005    | ML-DSA (Dilithium)      | FIPS 204  |
-| 0x0006    | ML-KEM (Kyber)          | FIPS 203  |
-| 0x0007-0xFFFF | Unassigned          |           |
+| 0x0004    | ML-DSA (Dilithium)      | FIPS 204  |
+| 0x0005    | ML-KEM (Kyber)          | FIPS 203  |
+| 0x0006-0xFFFF | Unassigned          |           |
 
 ## ACE-GF Usage Domain Registry
 
@@ -835,8 +957,9 @@ f0e1d2c3b4a5968778695a4b3c2d1e0f00112233445566778899aabbccddeeff
 
 **Output - Sealed Artifact (SA)**:
 41434500 (Magic)
-01       (Version)
+02       (Version)
 02       (ProfileID)
+00000001 (auth_index)
 0102030405060708090a0b0c0d0e0f10 (Salt)
 [Insert 32-byte Hex Ciphertext here]
 [Insert 16-byte Hex Tag here]
@@ -875,10 +998,10 @@ the same REV.
 [Insert Hex Key here]
 
 ### Case B: ML-KEM (Kyber) Key
-* **AlgID**: 0x0006
+* **AlgID**: 0x0005
 * **Domain**: 0x02
 * **Index**: 0
-* **Context Info (Hex)**: 00060200000000
+* **Context Info (Hex)**: 00050200000000
 * **Derived Key (64 bytes)**:
 [Insert Hex Key here]
 
@@ -1089,25 +1212,21 @@ provide an additional layer of security even if the Credential is weak.
 
 A simplified reference implementation of the ACE-GF derivation logic:
 
-    import hashlib
-    import hmac
+    import struct, hashlib
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCMSIV
 
-    def hkdf_expand(prk, info, length):
-      t = b""
-      okm = b""
-      for i in range((length + 31) // 32):
-        t = hmac.new(prk, t + info + bytes([i + 1]), hashlib.sha256).digest()
-        okm += t
-      return okm[:length]
+    def ace_seal_rev(rev, credential, salt_16, auth_index, profile=0x02):
+        extended_salt = salt_16 + struct.pack(">I", auth_index)
+        k_seal = hashlib.pbkdf2_hmac('sha256', credential.encode(), extended_salt, 100000)
 
-    # Example Context Construction
-    alg_id = (1).to_bytes(2, 'big')   # Ed25519
-    domain = (1).to_bytes(1, 'big')   # Signing
-    index  = (0).to_bytes(4, 'big')   # Index 0
-    ctx_info = alg_id + domain + index
+        aad = b"ACE\x00" + struct.pack(">BB I", 0x02, profile, auth_index)
+        return AESGCMSIV(k_seal).encrypt(b"\x00" * 12, rev, aad)
 
-    # prk = hkdf_extract(salt=0, ikm=REV)
-    # derived_key = hkdf_expand(prk, ctx_info, 32)
+    def ace_derive_key(rev, alg_id, domain, index, length):
+        prk = hashlib.hkdf_extract(hashlib.sha256, rev, salt=b"\x00" * 32)
+        info = struct.pack(">H B I", alg_id, domain, index)
+
+        return hashlib.hkdf_expand(hashlib.sha256, prk, info, length)
 
 # Example Use Cases (Informational)
 
