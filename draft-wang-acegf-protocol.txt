@@ -32,6 +32,13 @@ Abstract
    properties, and interoperability considerations of ACE-GF, while
    application-specific profiles are defined separately.
 
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/mscikdf/acegf-ietf-draft.
+
 Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
