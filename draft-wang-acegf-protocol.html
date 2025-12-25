@@ -1323,7 +1323,15 @@ profiles are defined separately.<a href="#section-abstract-3" class="pilcrow">¶
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-data-structures-and-encodin" class="internal xref">Data Structures and Encodings</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-sealed-artifact-sa-binary-f" class="internal xref">Sealed Artifact (SA) Binary Format</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-sealed-artifact-sa-binary-f" class="internal xref">Sealed Artifact (SA) Binary Format (Version 0x02)</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-sa-binary-layout-version-0x" class="internal xref">SA Binary Layout (Version 0x02)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.2">
+                    <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-field-semantics" class="internal xref">Field Semantics</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-sealing-profiles" class="internal xref">Sealing Profiles</a></p>
@@ -1356,16 +1364,36 @@ profiles are defined separately.<a href="#section-abstract-3" class="pilcrow">¶
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-operational-considerations-" class="internal xref">Operational Considerations and Identity Lifecycle</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-stateless-credential-rotati" class="internal xref">Stateless Credential Rotation</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-sealed-artifact-persistence" class="internal xref">Sealed Artifact Persistence and Mobility</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-failure-modes-and-recovery-" class="internal xref">Failure Modes and Recovery Considerations</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-stateless-credential-rotati" class="internal xref">Stateless Credential Rotation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-storage-and-ephemeral-state" class="internal xref">Storage and Ephemeral State Considerations</a></p>
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-logical-revocation-via-auth" class="internal xref">Logical Revocation via Authorization Index</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.1">
+                    <p id="section-toc.1-1.7.2.3.2.1.1"><a href="#section-7.3.1" class="auto internal xref">7.3.1</a>.  <a href="#name-mechanism" class="internal xref">Mechanism</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.2">
+                    <p id="section-toc.1-1.7.2.3.2.2.1"><a href="#section-7.3.2" class="auto internal xref">7.3.2</a>.  <a href="#name-properties" class="internal xref">Properties</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.3">
+                    <p id="section-toc.1-1.7.2.3.2.3.1"><a href="#section-7.3.3" class="auto internal xref">7.3.3</a>.  <a href="#name-scope-and-policy" class="internal xref">Scope and Policy</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.4">
+                    <p id="section-toc.1-1.7.2.3.2.4.1"><a href="#section-7.3.4" class="auto internal xref">7.3.4</a>.  <a href="#name-authorization-index-synchro" class="internal xref">Authorization Index Synchronization</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
-                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-migration-considerations" class="internal xref">Migration Considerations</a></p>
+                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-failure-modes-and-recovery-" class="internal xref">Failure Modes and Recovery Considerations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
+                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="auto internal xref">7.5</a>.  <a href="#name-storage-and-ephemeral-state" class="internal xref">Storage and Ephemeral State Considerations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6">
+                <p id="section-toc.1-1.7.2.6.1"><a href="#section-7.6" class="auto internal xref">7.6</a>.  <a href="#name-migration-considerations" class="internal xref">Migration Considerations</a></p>
 </li>
             </ul>
 </li>
@@ -1885,21 +1913,27 @@ environments.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-1">To resist offline brute-force attacks, ACE-GF utilizes the Argon2id
 algorithm [RFC9106] for stretching user-provided credentials (Cred) into
 a symmetric sealing key (K_seal).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">The specific mechanism by which <code>auth_index</code> is bound into the sealing
+key derivation is an implementation detail, provided that distinct
+values of <code>auth_index</code> result in cryptographically independent
+sealing keys.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.1-2.1">
-            <p id="section-4.1-2.1.1"><strong>Algorithm Selection</strong>: Implementations MUST use the Argon2id variant
+<li class="normal" id="section-4.1-3.1">
+            <p id="section-4.1-3.1.1"><strong>Algorithm Selection</strong>: Implementations MUST use the Argon2id variant
 (as opposed to Argon2i or Argon2d) to provide optimized protection
-against both side-channel attacks and GPU-based cracking.<a href="#section-4.1-2.1.1" class="pilcrow">¶</a></p>
+against both side-channel attacks and GPU-based cracking.<a href="#section-4.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.1-2.2">
-            <p id="section-4.1-2.2.1"><strong>Parameter Negotiation</strong>: Implementations SHOULD support pre-defined
+          <li class="normal" id="section-4.1-3.2">
+            <p id="section-4.1-3.2.1"><strong>Parameter Negotiation</strong>: Implementations SHOULD support pre-defined
 Sealing Profiles that specify memory cost (M), time iterations (T),
-and parallelism (P).<a href="#section-4.1-2.2.1" class="pilcrow">¶</a></p>
+and parallelism (P).<a href="#section-4.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.1-2.3">
-            <p id="section-4.1-2.3.1"><strong>Salt</strong>: Each Sealed Artifact (SA) MUST include a unique 128-bit
-random salt to ensure that identical credentials result in unique
-sealing keys.<a href="#section-4.1-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.1-3.3">
+            <p id="section-4.1-3.3.1"><strong>Salt</strong>: Each Sealed Artifact (SA) MUST include a 128-bit random
+salt sampled from a CSPRNG. For the purpose of binding the authorization
+epoch, the salt input to the Argon2id function MUST be a 20-byte
+sequence, constructed by concatenating the 16-byte random salt and
+the 4-byte Big-Endian representation of the auth_index.<a href="#section-4.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1911,9 +1945,13 @@ sealing keys.<a href="#section-4.1-2.3.1" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.2-1">ACE-GF employs AES-GCM-SIV [RFC8452] for the authenticated encryption
 of the Root Entropy Value (REV).<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">AES-256-GCM-SIV is used exclusively for authorization sealing of the
+Root Entropy Value (REV). It is not part of the Derive operation and
+does not correspond to any AlgID value in the Context Identifier
+Registry.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.2-2.1">
-            <p id="section-4.2-2.1.1"><strong>Misuse Resistance</strong>: AES-GCM-SIV is selected for its Synthetic
+<li class="normal" id="section-4.2-3.1">
+            <p id="section-4.2-3.1.1"><strong>Misuse Resistance</strong>: AES-GCM-SIV is selected for its Synthetic
 Initialization Vector (SIV) properties. In the specific context of
 ACE-GF, given that the REV is a 256-bit high-entropy random value,
 using a fixed 96-bit all-zero nonce (N_fixed) is safe under the
@@ -1922,17 +1960,32 @@ high-entropy value and that the sealing key is not reused for
 arbitrary plaintexts. This assumption holds only for the sealing
 of a single, uniformly random REV per Sealed Artifact (SA) and MUST NOT
 be extended to sealing arbitrary data or multiple plaintexts under
-the same key.<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
+the same key.<a href="#section-4.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.2-2.2">
-            <p id="section-4.2-2.2.1"><strong>Security Assurance</strong>: The use of AES-GCM-SIV prevents confidentiality
+          <li class="normal" id="section-4.2-3.2">
+            <p id="section-4.2-3.2.1"><strong>Security Assurance</strong>: The use of AES-GCM-SIV prevents confidentiality
 leaks even in cases of nonce reuse, eliminating the dependency on
 high-fidelity hardware Random Number Generators (RNG) during every
-sealing operation.<a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
+sealing operation.<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.2-2.3">
-            <p id="section-4.2-2.3.1"><strong>Data Structure</strong>: The encryption process MUST produce a 256-bit
-ciphertext and a 128-bit authentication tag.<a href="#section-4.2-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-3.3">
+            <p id="section-4.2-3.3.1"><strong>Data Structure</strong>: The encryption process MUST produce a 256-bit
+ciphertext and a 128-bit authentication tag.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-3.4">
+            <p id="section-4.2-3.4.1"><strong>Additional Authenticated Data (AAD)</strong>: To ensure the integrity of
+the authorization metadata, the AEAD encryption MUST supply the first
+10 bytes of the Sealed Artifact (SA) as Additional Authenticated Data.
+This AAD string consists of the Magic Number (4 bytes), Version
+(1 byte), ProfileID (1 byte), and auth_index (4 bytes).<a href="#section-4.2-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-3.5">
+            <p id="section-4.2-3.5.1"><strong>Authenticated Metadata Binding</strong>: Implementations MUST supply the
+Authorization Index (<code>auth_index</code>) as Additional Authenticated Data
+(AAD) to AES-256-GCM-SIV. This ensures that any modification of
+authorization metadata results in authentication failure during
+unsealing. Failure to bind <code>auth_index</code> via AAD constitutes a violation
+of this specification.<a href="#section-4.2-3.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2078,7 +2131,15 @@ the sealing key.<a href="#section-5.2.1-1.2.1" class="pilcrow">¶</a></p>
             <li class="normal" id="section-5.2.1-1.3">
               <p id="section-5.2.1-1.3.1"><strong>Sealing Profile</strong>: Identifies the Argon2id parameters to be used.<a href="#section-5.2.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
+            <li class="normal" id="section-5.2.1-1.4">
+              <p id="section-5.2.1-1.4.1"><strong>Authorization Index (auth_index)</strong>: A non-negative integer
+identifying the logical authorization epoch associated with this
+Sealed Artifact.<a href="#section-5.2.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
           </ul>
+<p id="section-5.2.1-2">The Authorization Index (<code>auth_index</code>) is not a user-supplied secret and is
+intended to be managed transparently by implementations. Its value is carried
+within the Sealed Artifact and SHOULD NOT require manual tracking by users.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="outputs-1">
@@ -2089,7 +2150,7 @@ the sealing key.<a href="#section-5.2.1-1.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2.2-1.1">
               <p id="section-5.2.2-1.1.1"><strong>Sealed Artifact (SA)</strong>: A serialized artifact containing the
-encrypted REV and associated metadata.<a href="#section-5.2.2-1.1.1" class="pilcrow">¶</a></p>
+encrypted REV, authorization metadata, and associated parameters.<a href="#section-5.2.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.2.2-1.2">
               <p id="section-5.2.2-1.2.1"><strong>Error</strong>: On failure.<a href="#section-5.2.2-1.2.1" class="pilcrow">¶</a></p>
@@ -2107,17 +2168,19 @@ encrypted REV and associated metadata.<a href="#section-5.2.2-1.1.1" class="pilc
               <p id="section-5.2.3-1.1.1">Generate or select a 128-bit random Salt.<a href="#section-5.2.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.3-1.2">
-              <p id="section-5.2.3-1.2.1">Derive the sealing key <code>K_seal</code> using Argon2id with the provided
-Credential, Salt, and parameters defined by the selected Sealing
-Profile.<a href="#section-5.2.3-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.3-1.2.1">Derive the sealing key <code>K_seal</code> using Argon2id. The <code>salt</code> parameter
+input to Argon2id MUST be the 20-byte concatenation:
+<code>Salt (16 bytes) || auth_index (4 bytes, Big-Endian).</code><a href="#section-5.2.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.3-1.3">
               <p id="section-5.2.3-1.3.1">Encrypt the REV using AES-256-GCM-SIV with <code>K_seal</code> and the fixed
-nonce <code>N_fixed</code>.<a href="#section-5.2.3-1.3.1" class="pilcrow">¶</a></p>
+nonce <code>N_fixed</code>. The <code>AAD</code> input MUST be the 10-byte sequence:
+<code>Magic || Version || ProfileID || auth_index</code>.<a href="#section-5.2.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.3-1.4">
               <p id="section-5.2.3-1.4.1">Construct the Sealed Artifact (SA) by concatenating the Magic
-Number, Version, ProfileID, Salt, Ciphertext, and Authentication Tag.<a href="#section-5.2.3-1.4.1" class="pilcrow">¶</a></p>
+Number, Version, ProfileID, <code>auth_index</code>, Salt, Ciphertext, and
+Authentication Tag, as specified in Section 6.1.<a href="#section-5.2.3-1.4.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.3-1.5">
               <p id="section-5.2.3-1.5.1">Zeroize the REV from volatile memory after successful sealing.<a href="#section-5.2.3-1.5.1" class="pilcrow">¶</a></p>
@@ -2139,7 +2202,11 @@ requirements.<a href="#section-5.2.4-1.1.1" class="pilcrow">¶</a></p>
               <p id="section-5.2.4-1.2.1"><strong>ProfileUnsupported</strong>: The specified Sealing Profile is not supported.<a href="#section-5.2.4-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.2.4-1.3">
-              <p id="section-5.2.4-1.3.1"><strong>SealingFailure</strong>: Encryption or key derivation fails.<a href="#section-5.2.4-1.3.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.4-1.3.1"><strong>InvalidAuthIndex</strong>: The provided <code>auth_index</code> is malformed or
+unsupported.<a href="#section-5.2.4-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.2.4-1.4">
+              <p id="section-5.2.4-1.4.1"><strong>SealingFailure</strong>: Encryption or key derivation fails.<a href="#section-5.2.4-1.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2170,8 +2237,8 @@ provided Sealed Artifact (SA) and Authorization Credential.<a href="#section-5.3
           </h4>
 <ul class="normal">
 <li class="normal" id="section-5.3.1-1.1">
-              <p id="section-5.3.1-1.1.1"><strong>Sealed Artifact (SA)</strong>: A serialized artifact containing the encrypted
-REV and associated metadata.<a href="#section-5.3.1-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.1-1.1.1"><strong>Sealed Artifact (SA)</strong>: A serialized artifact containing the
+encrypted REV and associated metadata.<a href="#section-5.3.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.1-1.2">
               <p id="section-5.3.1-1.2.1"><strong>Authorization Credential (Cred)</strong>: User- or system-provided secret
@@ -2202,18 +2269,22 @@ material required to derive the sealing key.<a href="#section-5.3.1-1.2.1" class
           </h4>
 <ol start="1" type="1" class="normal type-1" id="section-5.3.3-1">
 <li id="section-5.3.3-1.1">
-              <p id="section-5.3.3-1.1.1"><strong>Parse</strong>: Extract the Magic Number, Version, ProfileID, Salt, Ciphertext, and
-Authentication Tag from the SA. The Magic Number MUST be validated.
-Failure MUST result in InvalidFormat.<a href="#section-5.3.3-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.3-1.1.1"><strong>Parse</strong>: Extract the Magic Number, Version, ProfileID,
+<code>auth_index</code>, Salt, Ciphertext, and Authentication Tag from the SA.
+The Magic Number and Version MUST be validated. Failure MUST result
+in <code>InvalidFormat</code>.<a href="#section-5.3.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.3.3-1.2">
               <p id="section-5.3.3-1.2.1"><strong>Derive</strong>: Recompute the sealing key <code>K_seal</code> using the provided
-Credential, extracted Salt, and the parameters associated with the
-ProfileID.<a href="#section-5.3.3-1.2.1" class="pilcrow">¶</a></p>
+Credential, extracted Salt, <code>auth_index</code>, and the parameters
+associated with the ProfileID.<a href="#section-5.3.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.3.3-1.3">
               <p id="section-5.3.3-1.3.1"><strong>Decrypt</strong>: Execute AES-256-GCM-SIV decryption on the Ciphertext using
-<code>K_seal</code>, the fixed nonce <code>N_fixed</code>, and the Authentication Tag.<a href="#section-5.3.3-1.3.1" class="pilcrow">¶</a></p>
+<code>K_seal</code>, the fixed nonce <code>N_fixed</code>, and the Authentication Tag.
+The same Additional Authenticated Data (AAD) used during sealing
+(<code>auth_index</code>, ProfileID, and Version) MUST be supplied. Authentication
+failure MUST result in an error.<a href="#section-5.3.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -2233,6 +2304,10 @@ version or profile identifiers.<a href="#section-5.3.4-1.2.1" class="pilcrow">¶
 </li>
             <li class="normal" id="section-5.3.4-1.3">
               <p id="section-5.3.4-1.3.1"><strong>ProfileUnsupported</strong>: The referenced ProfileID is not implemented.<a href="#section-5.3.4-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.3.4-1.4">
+              <p id="section-5.3.4-1.4.1"><strong>AuthorizationMismatch</strong>: The derived sealing key does not match
+the authorization metadata embedded in the SA.<a href="#section-5.3.4-1.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2298,8 +2373,9 @@ usage domain, and key index.<a href="#section-5.4.1-1.2.1" class="pilcrow">¶</a
           </h4>
 <ol start="1" type="1" class="normal type-1" id="section-5.4.3-1">
 <li id="section-5.4.3-1.1">
-              <p id="section-5.4.3-1.1.1">Perform HKDF-Extract using the REV as input key material to produce a
-pseudorandom key (PRK).<a href="#section-5.4.3-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.4.3-1.1.1">Perform HKDF-Extract using the REV as the input key material (IKM)
+to produce a pseudorandom key (PRK). The <code>salt</code> parameter for
+HKDF-Extract MUST be a 32-byte string of all zeros.<a href="#section-5.4.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.4.3-1.2">
               <p id="section-5.4.3-1.2.1">Perform HKDF-Expand using the PRK and the serialized Context Tuple
@@ -2349,67 +2425,105 @@ complete.<a href="#section-5.4.5-1" class="pilcrow">¶</a></p>
       <h2 id="name-data-structures-and-encodin">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-data-structures-and-encodin" class="section-name selfRef">Data Structures and Encodings</a>
       </h2>
-<div id="sealed-artifact-sa-binary-format">
+<div id="sealed-artifact-sa-binary-format-version-0x02">
 <section id="section-6.1">
         <h3 id="name-sealed-artifact-sa-binary-f">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-sealed-artifact-sa-binary-f" class="section-name selfRef">Sealed Artifact (SA) Binary Format</a>
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-sealed-artifact-sa-binary-f" class="section-name selfRef">Sealed Artifact (SA) Binary Format (Version 0x02)</a>
         </h3>
-<p id="section-6.1-1">The Sealed Artifact (SA) is a serialized byte array that contains all
-necessary metadata and encrypted data to reconstruct the Identity. All
-multi-byte fields MUST be encoded in Big-Endian (Network Byte Order).
-Implementations MUST reject any SA whose total length does not exactly
-match the expected length for the indicated Version.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">The SA structure is defined as follows:<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">This section defines the binary encoding of the Sealed Artifact (SA)
+for protocol version 0x02. The SA encapsulates the encrypted Root
+Entropy Value (REV) together with all metadata required for deterministic
+reconstruction.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">All multi-byte integer fields MUST be encoded in Big-Endian (Network
+Byte Order). Implementations MUST reject any SA whose total length does
+not exactly match the expected length for the indicated Version.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<div id="sa-binary-layout-version-0x02">
+<section id="section-6.1.1">
+          <h4 id="name-sa-binary-layout-version-0x">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-sa-binary-layout-version-0x" class="section-name selfRef">SA Binary Layout (Version 0x02)</a>
+          </h4>
 <table class="center" id="table-2">
-          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+            <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
 <thead>
-            <tr>
-              <th class="text-left" rowspan="1" colspan="1">Offset</th>
-              <th class="text-left" rowspan="1" colspan="1">Length</th>
-              <th class="text-left" rowspan="1" colspan="1">Field</th>
-              <th class="text-left" rowspan="1" colspan="1">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">0</td>
-              <td class="text-left" rowspan="1" colspan="1">4</td>
-              <td class="text-left" rowspan="1" colspan="1">Magic Number</td>
-              <td class="text-left" rowspan="1" colspan="1">Fixed bytes: 0x41 0x43 0x45 0x00 ('ACE\0')</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">4</td>
-              <td class="text-left" rowspan="1" colspan="1">1</td>
-              <td class="text-left" rowspan="1" colspan="1">Version</td>
-              <td class="text-left" rowspan="1" colspan="1">Protocol version (currently 0x01)</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">5</td>
-              <td class="text-left" rowspan="1" colspan="1">1</td>
-              <td class="text-left" rowspan="1" colspan="1">Profile ID</td>
-              <td class="text-left" rowspan="1" colspan="1">Identifier for Sealing Profile</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">6</td>
-              <td class="text-left" rowspan="1" colspan="1">16</td>
-              <td class="text-left" rowspan="1" colspan="1">Salt</td>
-              <td class="text-left" rowspan="1" colspan="1">Random salt for Argon2id</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">22</td>
-              <td class="text-left" rowspan="1" colspan="1">32</td>
-              <td class="text-left" rowspan="1" colspan="1">Ciphertext</td>
-              <td class="text-left" rowspan="1" colspan="1">AES-GCM-SIV encrypted REV</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">54</td>
-              <td class="text-left" rowspan="1" colspan="1">16</td>
-              <td class="text-left" rowspan="1" colspan="1">Tag</td>
-              <td class="text-left" rowspan="1" colspan="1">Authentication Tag (MAC)</td>
-            </tr>
-          </tbody>
-        </table>
-<p id="section-6.1-4"><strong>Total Length: 70 Bytes.</strong><a href="#section-6.1-4" class="pilcrow">¶</a></p>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Offset</th>
+                <th class="text-left" rowspan="1" colspan="1">Length</th>
+                <th class="text-left" rowspan="1" colspan="1">Field</th>
+                <th class="text-left" rowspan="1" colspan="1">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">0</td>
+                <td class="text-left" rowspan="1" colspan="1">4</td>
+                <td class="text-left" rowspan="1" colspan="1">Magic Number</td>
+                <td class="text-left" rowspan="1" colspan="1">Fixed bytes: 0x41 0x43 0x45 0x00 ("ACE\0")</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">4</td>
+                <td class="text-left" rowspan="1" colspan="1">1</td>
+                <td class="text-left" rowspan="1" colspan="1">Version</td>
+                <td class="text-left" rowspan="1" colspan="1">Protocol version (0x02)</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">5</td>
+                <td class="text-left" rowspan="1" colspan="1">1</td>
+                <td class="text-left" rowspan="1" colspan="1">ProfileID</td>
+                <td class="text-left" rowspan="1" colspan="1">Identifier for Sealing Profile</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">6</td>
+                <td class="text-left" rowspan="1" colspan="1">4</td>
+                <td class="text-left" rowspan="1" colspan="1">auth_index</td>
+                <td class="text-left" rowspan="1" colspan="1">Authorization Index (Unsigned 32-bit)</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">10</td>
+                <td class="text-left" rowspan="1" colspan="1">16</td>
+                <td class="text-left" rowspan="1" colspan="1">Salt</td>
+                <td class="text-left" rowspan="1" colspan="1">Random salt for Argon2id</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">26</td>
+                <td class="text-left" rowspan="1" colspan="1">32</td>
+                <td class="text-left" rowspan="1" colspan="1">Ciphertext</td>
+                <td class="text-left" rowspan="1" colspan="1">AES-256-GCM-SIV encrypted REV</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">58</td>
+                <td class="text-left" rowspan="1" colspan="1">16</td>
+                <td class="text-left" rowspan="1" colspan="1">Tag</td>
+                <td class="text-left" rowspan="1" colspan="1">Authentication Tag (MAC)</td>
+              </tr>
+            </tbody>
+          </table>
+<p id="section-6.1.1-2"><strong>Total Length: 74 bytes</strong><a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="field-semantics">
+<section id="section-6.1.2">
+          <h4 id="name-field-semantics">
+<a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-field-semantics" class="section-name selfRef">Field Semantics</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-6.1.2-1.1">
+              <p id="section-6.1.2-1.1.1"><strong>auth_index</strong>:
+The Authorization Index represents an authorization epoch associated
+with the Sealed Artifact. Different values of <code>auth_index</code> under the
+same REV represent distinct authorization states. Implementations MUST
+ensure that Sealed Artifacts generated with different <code>auth_index</code>
+values are cryptographically independent and mutually non-decryptable.<a href="#section-6.1.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.1.2-1.2">
+              <p id="section-6.1.2-1.2.1"><strong>Backward Compatibility</strong>:
+Version 0x01 Sealed Artifacts do not contain an <code>auth_index</code> field.
+Implementations MAY support Version 0x01 for backward compatibility
+but MUST NOT interpret missing <code>auth_index</code> values as equivalent to
+any specific authorization state.<a href="#section-6.1.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="sealing-profiles">
@@ -2468,13 +2582,9 @@ high-security server environments.<a href="#section-6.2-1" class="pilcrow">¶</a
 algorithms, the <code>AlgID</code> field in the Context Tuple MUST use the following
 initial registry. This ensures that a key derived for Ed25519 cannot
 be mistakenly used or mathematically linked to a Secp256k1 key.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">The AES-256-GCM-SIV algorithm identifier is reserved exclusively for
-authorization sealing operations within ACE-GF. It MUST NOT be used as
-a general-purpose symmetric encryption context for application data,
-nor appear as an input to the Derive operation.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">Usage Domains describe the functional intent of derived key material
+<p id="section-6.3-2">Usage Domains describe the functional intent of derived key material
 and do not override algorithm-specific restrictions defined elsewhere
-in this document.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+in this document.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 <div id="algorithm-identifiers-algid">
 <section id="section-6.3.1">
           <h4 id="name-algorithm-identifiers-algid">
@@ -2507,16 +2617,11 @@ in this document.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">0x0004</td>
-                <td class="text-left" rowspan="1" colspan="1">AES-256-GCM-SIV</td>
-                <td class="text-left" rowspan="1" colspan="1">RFC 8452</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">0x0005</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-DSA (Dilithium-PQC)</td>
                 <td class="text-left" rowspan="1" colspan="1">FIPS 204</td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">0x0006</td>
+                <td class="text-left" rowspan="1" colspan="1">0x0005</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-KEM (Kyber-PQC)</td>
                 <td class="text-left" rowspan="1" colspan="1">FIPS 203</td>
               </tr>
@@ -2637,87 +2742,194 @@ underlying Root Entropy Value (REV). Authorization material may be
 updated or rendered unavailable independently, while derived
 cryptographic identifiers remain stable as long as the REV remains
 reachable.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<div id="stateless-credential-rotation">
+<div id="sealed-artifact-persistence-and-mobility">
 <section id="section-7.1">
-        <h3 id="name-stateless-credential-rotati">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-stateless-credential-rotati" class="section-name selfRef">Stateless Credential Rotation</a>
+        <h3 id="name-sealed-artifact-persistence">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-sealed-artifact-persistence" class="section-name selfRef">Sealed Artifact Persistence and Mobility</a>
         </h3>
-<p id="section-7.1-1">ACE-GF supports stateless credential rotation, allowing an entity to
+<p id="section-7.1-1">The Sealed Artifact (SA) is a persistent, encrypted authorization artifact,
+not a cryptographic root. Possession of an SA alone does not enable identity
+reconstruction without the corresponding Authorization Credential.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">Because the SA contains no plaintext secret material and reveals no information
+about the Root Entropy Value (REV), it MAY be stored, replicated, and transported
+using untrusted storage mechanisms, including public cloud storage or
+distributed content-addressable systems.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-3">Loss of all copies of the SA renders the identity cryptographically unreachable.
+Applications SHOULD treat the SA as durable authorization metadata and apply
+backup and redundancy strategies appropriate to their threat model.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="stateless-credential-rotation">
+<section id="section-7.2">
+        <h3 id="name-stateless-credential-rotati">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-stateless-credential-rotati" class="section-name selfRef">Stateless Credential Rotation</a>
+        </h3>
+<p id="section-7.2-1">ACE-GF supports stateless credential rotation, allowing an entity to
 update its Authorization Credential (e.g., changing a password or
 authorization factor) without altering the underlying Root Entropy
-Value (REV).<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">Because the REV is the sole source of all derived cryptographic keys,
+Value (REV).<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">Because the REV is the sole source of all derived cryptographic keys,
 this process preserves identity continuity. No derived public keys,
-addresses, or identifiers need to be regenerated or re-announced.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.1-3">The rotation process is performed as follows:<a href="#section-7.1-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-7.1-4">
-<li id="section-7.1-4.1">
-            <p id="section-7.1-4.1.1"><strong>Unseal</strong>: Use the current Authorization Credential and the existing
-Sealed Artifact (SA) to reconstruct the REV in volatile memory.<a href="#section-7.1-4.1.1" class="pilcrow">¶</a></p>
+addresses, or identifiers need to be regenerated or re-announced.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">The rotation process is performed as follows:<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-7.2-4">
+<li id="section-7.2-4.1">
+            <p id="section-7.2-4.1.1"><strong>Unseal</strong>: Use the current Authorization Credential and the existing
+Sealed Artifact (SA) to reconstruct the REV in volatile memory.<a href="#section-7.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-7.1-4.2">
-            <p id="section-7.1-4.2.1"><strong>Generate New Salt</strong>: Sample a new 128-bit random salt value.<a href="#section-7.1-4.2.1" class="pilcrow">¶</a></p>
+          <li id="section-7.2-4.2">
+            <p id="section-7.2-4.2.1"><strong>Generate New Salt</strong>: Sample a new 128-bit random salt value.<a href="#section-7.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-7.1-4.3">
-            <p id="section-7.1-4.3.1"><strong>Re-Seal</strong>: Perform the Sealing Process (as defined in Section 4.2)
+          <li id="section-7.2-4.3">
+            <p id="section-7.2-4.3.1"><strong>Re-Seal</strong>: Perform the Sealing Process (as defined in Section 4.2)
 using the new Authorization Credential and the new salt, while
-maintaining the same REV.<a href="#section-7.1-4.3.1" class="pilcrow">¶</a></p>
+maintaining the same REV.<a href="#section-7.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-7.1-4.4">
-            <p id="section-7.1-4.4.1"><strong>Commit</strong>: Replace the previous SA with the newly generated SA.<a href="#section-7.1-4.4.1" class="pilcrow">¶</a></p>
+          <li id="section-7.2-4.4">
+            <p id="section-7.2-4.4.1"><strong>Commit</strong>: Replace the previous SA with the newly generated SA.<a href="#section-7.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-7.1-5">This operation is stateless with respect to identity semantics. No
+<p id="section-7.2-5">This operation is stateless with respect to identity semantics. No
 persistent state other than the updated SA is required, and no protocol-
-visible identity attributes are modified.<a href="#section-7.1-5" class="pilcrow">¶</a></p>
+visible identity attributes are modified.<a href="#section-7.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="logical-revocation-via-authorization-index">
+<section id="section-7.3">
+        <h3 id="name-logical-revocation-via-auth">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-logical-revocation-via-auth" class="section-name selfRef">Logical Revocation via Authorization Index</a>
+        </h3>
+<p id="section-7.3-1">ACE-GF defines <em>logical revocation</em> as the ability to render a previously
+valid Sealed Artifact (SA) unusable without modifying the underlying
+Root Entropy Value (REV).<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">An ACE-GF Identity is defined by the ability to reconstruct the REV.
+Logical revocation invalidates specific authorization states while
+preserving the identity itself and all derived cryptographic identifiers.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+<div id="mechanism">
+<section id="section-7.3.1">
+          <h4 id="name-mechanism">
+<a href="#section-7.3.1" class="section-number selfRef">7.3.1. </a><a href="#name-mechanism" class="section-name selfRef">Mechanism</a>
+          </h4>
+<p id="section-7.3.1-1">Logical revocation is achieved by updating the Authorization Index
+(<code>auth_index</code>) and re-sealing the same REV:<a href="#section-7.3.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-7.3.1-2">
+<li id="section-7.3.1-2.1">
+              <p id="section-7.3.1-2.1.1">The current SA is unsealed to reconstruct the REV in volatile memory.<a href="#section-7.3.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-7.3.1-2.2">
+              <p id="section-7.3.1-2.2.1">The <code>auth_index</code> value is incremented or otherwise updated according
+to application policy.<a href="#section-7.3.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-7.3.1-2.3">
+              <p id="section-7.3.1-2.3.1">The REV is re-sealed under the new <code>auth_index</code>, producing a new SA.<a href="#section-7.3.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-7.3.1-2.4">
+              <p id="section-7.3.1-2.4.1">The previous SA is discarded or rendered inaccessible.<a href="#section-7.3.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
+<p id="section-7.3.1-3">Because <code>auth_index</code> is cryptographically bound into the sealing key
+derivation, any SA created under a prior authorization index becomes
+undecryptable once the active index changes.<a href="#section-7.3.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="properties">
+<section id="section-7.3.2">
+          <h4 id="name-properties">
+<a href="#section-7.3.2" class="section-number selfRef">7.3.2. </a><a href="#name-properties" class="section-name selfRef">Properties</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-7.3.2-1.1">
+              <p id="section-7.3.2-1.1.1">Logical revocation does not require regeneration of the REV.<a href="#section-7.3.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.3.2-1.2">
+              <p id="section-7.3.2-1.2.1">Logical revocation does not require identifier rotation (e.g.,
+blockchain address changes).<a href="#section-7.3.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.3.2-1.3">
+              <p id="section-7.3.2-1.3.1">Logical revocation does not rely on external revocation infrastructure
+such as CRLs or OCSP.<a href="#section-7.3.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.3.2-1.4">
+              <p id="section-7.3.2-1.4.1">The effect of logical revocation is immediate and purely
+cryptographic.<a href="#section-7.3.2-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="scope-and-policy">
+<section id="section-7.3.3">
+          <h4 id="name-scope-and-policy">
+<a href="#section-7.3.3" class="section-number selfRef">7.3.3. </a><a href="#name-scope-and-policy" class="section-name selfRef">Scope and Policy</a>
+          </h4>
+<p id="section-7.3.3-1">This specification defines the cryptographic mechanism required to
+support logical revocation. Policies governing authorization index
+management, distribution of updated Sealed Artifacts, recovery
+procedures, and governance models are application-specific and out of
+scope.<a href="#section-7.3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authorization-index-synchronization">
+<section id="section-7.3.4">
+          <h4 id="name-authorization-index-synchro">
+<a href="#section-7.3.4" class="section-number selfRef">7.3.4. </a><a href="#name-authorization-index-synchro" class="section-name selfRef">Authorization Index Synchronization</a>
+          </h4>
+<p id="section-7.3.4-1">In multi-device or multi-instance deployments, applications are responsible for
+ensuring that the most recent Sealed Artifact is distributed to all authorized
+endpoints. Implementations SHOULD treat the Sealed Artifact as versioned
+authorization state and ensure that stale artifacts are replaced when
+authorization updates occur.<a href="#section-7.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.3.4-2">The ACE-GF protocol does not require global state synchronization and does not
+define mechanisms for resolving concurrent authorization updates.<a href="#section-7.3.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="failure-modes-and-recovery-considerations">
-<section id="section-7.2">
+<section id="section-7.4">
         <h3 id="name-failure-modes-and-recovery-">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-failure-modes-and-recovery-" class="section-name selfRef">Failure Modes and Recovery Considerations</a>
+<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-failure-modes-and-recovery-" class="section-name selfRef">Failure Modes and Recovery Considerations</a>
         </h3>
-<p id="section-7.2-1">Failure to reconstruct the REV may occur due to incorrect credentials,
+<p id="section-7.4-1">Failure to reconstruct the REV may occur due to incorrect credentials,
 corrupted Sealed Artifacts, unsupported sealing profiles, or intentional
-revocation actions.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">Implementations SHOULD treat all unsealing failures as indistinguishable
+revocation actions.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">Implementations SHOULD treat all unsealing failures as indistinguishable
 from an external observability perspective and MUST NOT leak partial
-information about the REV or derived keys in failure scenarios.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">Recovery is possible only if sufficient authorization material remains
+information about the REV or derived keys in failure scenarios.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+<p id="section-7.4-3">Recovery is possible only if sufficient authorization material remains
 available. Loss of all authorization inputs results in permanent
-unreachability of the REV.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+unreachability of the REV.<a href="#section-7.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="storage-and-ephemeral-state-considerations">
-<section id="section-7.3">
+<section id="section-7.5">
         <h3 id="name-storage-and-ephemeral-state">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-storage-and-ephemeral-state" class="section-name selfRef">Storage and Ephemeral State Considerations</a>
+<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-storage-and-ephemeral-state" class="section-name selfRef">Storage and Ephemeral State Considerations</a>
         </h3>
-<p id="section-7.3-1">The Root Entropy Value (REV) is intended to exist only in volatile memory
-during active operations and MUST NOT be persistently stored.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.3-2">The Sealed Artifact (SA) is the sole persistent representation required
+<p id="section-7.5-1">The Root Entropy Value (REV) is intended to exist only in volatile memory
+during active operations and MUST NOT be persistently stored.<a href="#section-7.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.5-2">The Sealed Artifact (SA) is the sole persistent representation required
 to reconstruct an ACE identity. It MAY be stored, transmitted, or backed
 up using conventional storage mechanisms, subject to application-specific
-security policies.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
-<p id="section-7.3-3">Implementations SHOULD ensure timely zeroization of all sensitive
+security policies.<a href="#section-7.5-2" class="pilcrow">¶</a></p>
+<p id="section-7.5-3">Implementations SHOULD ensure timely zeroization of all sensitive
 material, including the REV, sealing keys, and intermediate buffers,
 after use. Where available, hardware-backed isolation mechanisms such as
 Trusted Execution Environments (TEEs) are RECOMMENDED to reduce exposure
-risk during reconstruction and derivation operations.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+risk during reconstruction and derivation operations.<a href="#section-7.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="migration-considerations">
-<section id="section-7.4">
+<section id="section-7.6">
         <h3 id="name-migration-considerations">
-<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-migration-considerations" class="section-name selfRef">Migration Considerations</a>
+<a href="#section-7.6" class="section-number selfRef">7.6. </a><a href="#name-migration-considerations" class="section-name selfRef">Migration Considerations</a>
         </h3>
-<p id="section-7.4-1">Existing cryptographic identities MAY be migrated into the ACE-GF
+<p id="section-7.6-1">Existing cryptographic identities MAY be migrated into the ACE-GF
 framework by treating a legacy high-entropy private key as a Root
-Entropy Value (REV) and sealing it using standard ACE-GF procedures.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
-<p id="section-7.4-2">Such migrations are OPTIONAL and profile-dependent. Implementations
+Entropy Value (REV) and sealing it using standard ACE-GF procedures.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
+<p id="section-7.6-2">Such migrations are OPTIONAL and profile-dependent. Implementations
 SHOULD document any deviations from native ACE-GF derivation semantics
 and SHOULD clearly distinguish between natively generated ACE-GF
-identities and migrated identities when relevant.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+identities and migrated identities when relevant.<a href="#section-7.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2979,21 +3191,16 @@ in [RFC8126].<a href="#section-9.2-2" class="pilcrow">¶</a></p>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">0x0004</td>
-              <td class="text-left" rowspan="1" colspan="1">AES-256-GCM-SIV (Sealing Only)</td>
-              <td class="text-left" rowspan="1" colspan="1">RFC 8452</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">0x0005</td>
               <td class="text-left" rowspan="1" colspan="1">ML-DSA (Dilithium)</td>
               <td class="text-left" rowspan="1" colspan="1">FIPS 204</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">0x0006</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0005</td>
               <td class="text-left" rowspan="1" colspan="1">ML-KEM (Kyber)</td>
               <td class="text-left" rowspan="1" colspan="1">FIPS 203</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">0x0007-0xFFFF</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0006-0xFFFF</td>
               <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
@@ -3091,8 +3298,9 @@ f0e1d2c3b4a5968778695a4b3c2d1e0f00112233445566778899aabbccddeeff<a href="#sectio
           </ul>
 <p id="section-10.1.1-3"><strong>Output - Sealed Artifact (SA)</strong>:
 41434500 (Magic)
-01       (Version)
+02       (Version)
 02       (ProfileID)
+00000001 (auth_index)
 0102030405060708090a0b0c0d0e0f10 (Salt)
 [Insert 32-byte Hex Ciphertext here]
 [Insert 16-byte Hex Tag here]<a href="#section-10.1.1-3" class="pilcrow">¶</a></p>
@@ -3182,7 +3390,7 @@ the same REV.<a href="#section-10.3.1-1" class="pilcrow">¶</a></p>
           </h4>
 <ul class="normal">
 <li class="normal" id="section-10.3.3-1.1">
-              <p id="section-10.3.3-1.1.1"><strong>AlgID</strong>: 0x0006<a href="#section-10.3.3-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-10.3.3-1.1.1"><strong>AlgID</strong>: 0x0005<a href="#section-10.3.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.3.3-1.2">
               <p id="section-10.3.3-1.2.1"><strong>Domain</strong>: 0x02<a href="#section-10.3.3-1.2.1" class="pilcrow">¶</a></p>
@@ -3191,7 +3399,7 @@ the same REV.<a href="#section-10.3.1-1" class="pilcrow">¶</a></p>
               <p id="section-10.3.3-1.3.1"><strong>Index</strong>: 0<a href="#section-10.3.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.3.3-1.4">
-              <p id="section-10.3.3-1.4.1"><strong>Context Info (Hex)</strong>: 00060200000000<a href="#section-10.3.3-1.4.1" class="pilcrow">¶</a></p>
+              <p id="section-10.3.3-1.4.1"><strong>Context Info (Hex)</strong>: 00050200000000<a href="#section-10.3.3-1.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-10.3.3-1.5">
               <p id="section-10.3.3-1.5.1"><strong>Derived Key (64 bytes)</strong>:
@@ -3444,25 +3652,21 @@ provide an additional layer of security even if the Credential is weak.<a href="
 <p id="appendix-B-1">A simplified reference implementation of the ACE-GF derivation logic:<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B-2">
 <pre>
-import hashlib
-import hmac
+import struct, hashlib
+from cryptography.hazmat.primitives.ciphers.aead import AESGCMSIV
 
-def hkdf_expand(prk, info, length):
-  t = b""
-  okm = b""
-  for i in range((length + 31) // 32):
-    t = hmac.new(prk, t + info + bytes([i + 1]), hashlib.sha256).digest()
-    okm += t
-  return okm[:length]
+def ace_seal_rev(rev, credential, salt_16, auth_index, profile=0x02):
+    extended_salt = salt_16 + struct.pack("&gt;I", auth_index)
+    k_seal = hashlib.pbkdf2_hmac('sha256', credential.encode(), extended_salt, 100000)
 
-# Example Context Construction
-alg_id = (1).to_bytes(2, 'big')   # Ed25519
-domain = (1).to_bytes(1, 'big')   # Signing
-index  = (0).to_bytes(4, 'big')   # Index 0
-ctx_info = alg_id + domain + index
+    aad = b"ACE\x00" + struct.pack("&gt;BB I", 0x02, profile, auth_index)
+    return AESGCMSIV(k_seal).encrypt(b"\x00" * 12, rev, aad)
 
-# prk = hkdf_extract(salt=0, ikm=REV)
-# derived_key = hkdf_expand(prk, ctx_info, 32)
+def ace_derive_key(rev, alg_id, domain, index, length):
+    prk = hashlib.hkdf_extract(hashlib.sha256, rev, salt=b"\x00" * 32)
+    info = struct.pack("&gt;H B I", alg_id, domain, index)
+
+    return hashlib.hkdf_expand(hashlib.sha256, prk, info, length)
 </pre><a href="#appendix-B-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -3594,7 +3798,7 @@ for their initial feedback and review of this generative framework.<a href="#app
 <div dir="auto" class="left"><span class="org">Independent Researcher</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:jason@aceft.org" class="email">jason@aceft.org</a>
+<a href="mailto:jason@mscikdf.com" class="email">jason@mscikdf.com</a>
 </div>
 </address>
 </section>
