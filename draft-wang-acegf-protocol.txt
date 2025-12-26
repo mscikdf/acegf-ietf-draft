@@ -4,8 +4,8 @@
 
 Network Working Group                                         J. S. Wang
 Internet-Draft                                    Independent Researcher
-Intended status: Informational                          25 December 2025
-Expires: 28 June 2026
+Intended status: Informational                          26 December 2025
+Expires: 29 June 2026
 
 
     ACE-GF: A Generative Framework for Atomic Cryptographic Entities
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 June 2026.
+   This Internet-Draft will expire on 29 June 2026.
 
 Copyright Notice
 
@@ -72,99 +72,102 @@ Table of Contents
    1.  Introduction
      1.1.  Background and Motivation
      1.2.  Core Contributions
-     1.3.  Conventions and Terminology
-   2.  Protocol Overview
-     2.1.  The Decoupled Identity Model
-     2.2.  Data Flow and Transformation
-     2.3.  Atomic Entity Lifecycle and States
-       2.3.1.  Operational States
-       2.3.2.  2.3.2.  Lifecycle Sequence
-     2.4.  Core Operations: Rekeying and Identity Unreachability
-     2.5.  2.5.  Local Call Sequence
-   3.  Architecture and Design Principles
-     3.1.  Identity Pipeline
-     3.2.  Authorization Pipeline
-   4.  Cryptographic Primitives
-     4.1.  KDF1: Credential Hashing (Argon2id)
-     4.2.  AEAD: Sealing Encryption (AES-GCM-SIV)
-     4.3.  KDF2: Key Derivation (HKDF-SHA256)
-   5.  Protocol Specification
-     5.1.  Root Entropy Value (REV) Generation
-       5.1.1.  Inputs
-       5.1.2.  Outputs
-       5.1.3.  Processing Requirements
-       5.1.4.  Error Conditions
-       5.1.5.  Error Handling Requirements
-     5.2.  Sealing Process (Seal)
-       5.2.1.  Inputs
-       5.2.2.  Outputs
-       5.2.3.  Processing Steps
-       5.2.4.  Error Conditions
-       5.2.5.  Error Handling Requirements
-     5.3.  Unsealing Process (Unseal)
-       5.3.1.  Inputs
-       5.3.2.  Outputs
-       5.3.3.  Processing Steps
-       5.3.4.  Error Conditions
-       5.3.5.  Error Handling Requirements
-     5.4.  Key Derivation Function (Derive)
-       5.4.1.  Inputs
-       5.4.2.  Outputs
-       5.4.3.  Processing Steps
-       5.4.4.  Error Conditions
-       5.4.5.  Error Handling Requirements
-   6.  Data Structures and Encodings
-     6.1.  Sealed Artifact (SA) Binary Format (Version 0x02)
-       6.1.1.  SA Binary Layout (Version 0x02)
-       6.1.2.  Field Semantics
-     6.2.  Sealing Profiles
-     6.3.  Context Labels
-       6.3.1.  Algorithm Identifiers (AlgID)
-       6.3.2.  Usage Domains (Domain)
-     6.4.  Context Tuple Encoding
-       6.4.1.  Context Tuple Binary Layout
-       6.4.2.  Encoding Rules
-   7.  Operational Considerations and Identity Lifecycle
-     7.1.  Sealed Artifact Persistence and Mobility
-     7.2.  Stateless Credential Rotation
-     7.3.  Logical Revocation via Authorization Index
-       7.3.1.  Mechanism
-       7.3.2.  Properties
-       7.3.3.  Scope and Policy
-       7.3.4.  Authorization Index Synchronization
-     7.4.  Failure Modes and Recovery Considerations
-     7.5.  Storage and Ephemeral State Considerations
-     7.6.  Migration Considerations
-   8.  Security Considerations
-     8.1.  Entropy Requirements for Credentials
-     8.2.  Side-Channel Protections and Memory Management
-       8.2.1.  Trusted Execution Environments (TEE)
-       8.2.2.  Memory Zeroization
-     8.3.  Resistance to Brute-Force Attacks
-     8.4.  Post-Quantum Transition and Hybrid Security
-     8.5.  Note on AES-GCM-SIV and Fixed Nonce
-   9.  IANA Considerations
-     9.1.  ACE-GF Sealing Profile Registry
-     9.2.  ACE-GF Context Identifier Registry
-     9.3.  ACE-GF Usage Domain Registry
-   10. Test Vectors
-     10.1.  Basic Protocol Test Vectors
-       10.1.1.  Standard Sealing Profile
-     10.2.  Cross-Platform and Encoding Consistency
-       10.2.1.  UTF-8 Credential Handling
-     10.3.  Multi-Algorithm and Post-Quantum Derivation
-       10.3.1.  Classical + PQC Key Derivation from a Single REV
-       10.3.2.  Case A: Ed25519 Signing Key
-       10.3.3.  Case B: ML-KEM (Kyber) Key
-     10.4.  Application Profile Test Vectors (Informational)
-       10.4.1.  Cryptocurrency Wallet Application Profile
-     10.5.  10.5.  Interoperability Verification Guidance
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   2.  Conventions and Terminology
+     2.1.  Conventions
+     2.2.  Terminology
+   3.  Protocol Overview
+     3.1.  The Decoupled Identity Model
+     3.2.  Data Flow and Transformation
+     3.3.  Atomic Entity Lifecycle and States
+       3.3.1.  Operational States
+       3.3.2.  Lifecycle Sequence
+     3.4.  Core Operations: Rekeying and Identity Unreachability
+     3.5.  Local Call Sequence
+   4.  Architecture and Design Principles
+     4.1.  Identity Pipeline
+     4.2.  Authorization Pipeline
+   5.  Cryptographic Primitives
+     5.1.  KDF1: Credential Hashing (Argon2id)
+     5.2.  AEAD: Sealing Encryption (AES-GCM-SIV)
+     5.3.  KDF2: Key Derivation (HKDF-SHA256)
+   6.  Protocol Specification
+     6.1.  Root Entropy Value (REV) Generation
+       6.1.1.  Inputs
+       6.1.2.  Outputs
+       6.1.3.  Processing Requirements
+       6.1.4.  Error Conditions
+       6.1.5.  Error Handling Requirements
+     6.2.  Sealing Process (Seal)
+       6.2.1.  Inputs
+       6.2.2.  Outputs
+       6.2.3.  Processing Steps
+       6.2.4.  Error Conditions
+       6.2.5.  Error Handling Requirements
+     6.3.  Unsealing Process (Unseal)
+       6.3.1.  Inputs
+       6.3.2.  Outputs
+       6.3.3.  Processing Steps
+       6.3.4.  Error Conditions
+       6.3.5.  Error Handling Requirements
+     6.4.  Key Derivation Function (Derive)
+       6.4.1.  Inputs
+       6.4.2.  Outputs
+       6.4.3.  Processing Steps
+       6.4.4.  Error Conditions
+       6.4.5.  Error Handling Requirements
+   7.  Data Structures and Encodings
+     7.1.  Sealed Artifact (SA) Binary Format (Version 0x01)
+       7.1.1.  SA Binary Layout (Version 0x01)
+       7.1.2.  Field Semantics
+     7.2.  Sealing Profiles
+     7.3.  Context Labels
+       7.3.1.  Algorithm Identifiers (AlgID)
+       7.3.2.  Usage Domains (Domain)
+     7.4.  Context Tuple Encoding
+       7.4.1.  Context Tuple Binary Layout
+       7.4.2.  Encoding Rules
+   8.  Operational Considerations and Identity Lifecycle
+     8.1.  Sealed Artifact Persistence and Mobility
+     8.2.  Stateless Credential Rotation
+     8.3.  Logical Revocation via Authorization Index
+       8.3.1.  Mechanism
+       8.3.2.  Properties
+       8.3.3.  Scope and Policy
+       8.3.4.  Authorization Index Synchronization
+     8.4.  Failure Modes and Recovery Considerations
+     8.5.  Storage and Ephemeral State Considerations
+     8.6.  Migration Considerations
+   9.  Security Considerations
+     9.1.  Entropy Requirements for Credentials
+     9.2.  Protection of Volatile Memory and Memory Management
+       9.2.1.  Isolated Execution Environments (IEE)
+       9.2.2.  Memory Hardening and Zeroization
+     9.3.  Resistance to Brute-Force Attacks
+     9.4.  Post-Quantum Transition and Hybrid Security
+     9.5.  Note on AES-GCM-SIV and Fixed Nonce
+   10. IANA Considerations
+     10.1.  ACE-GF Sealing Profile Registry
+     10.2.  ACE-GF Context Identifier Registry
+     10.3.  ACE-GF Usage Domain Registry
+   11. Test Vectors
+     11.1.  Basic Protocol Test Vectors
+       11.1.1.  Standard Sealing Profile
+     11.2.  Cross-Platform and Encoding Consistency
+       11.2.1.  UTF-8 Credential Handling
+     11.3.  Multi-Algorithm and Post-Quantum Derivation
+       11.3.1.  Classical + PQC Key Derivation from a Single REV
+       11.3.2.  Case A: Ed25519 Signing Key
+       11.3.3.  Case B: ML-KEM (Kyber) Key
+     11.4.  Application Profile Test Vectors (Informational)
+       11.4.1.  Cryptocurrency Wallet Application Profile
+     11.5.  10.5.  Interoperability Verification Guidance
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Appendix A.  Implementation Considerations for Resource-Constrained
            Devices
-   Appendix B.  Python Reference Implementation
+   Appendix B.  Illustrative Python Pseudocode
+     B.1.  Note
    Appendix C.  Example Use Cases (Informational)
      C.1.  Autonomous Digital Entities (ADEs)
      C.2.  IoT and Embedded Devices
@@ -182,20 +185,19 @@ Table of Contents
 
 1.1.  Background and Motivation
 
-   Deterministic key management schemes, such as BIP-32 and BIP-39, have
-   simplified key recovery by deriving keys from a single
-   [cite_start]master seed[cite: 18].  However, these schemes rely on
-   the long-term persistent storage of that seed, which constitutes
-   [cite_start]a single point of failure (SPOF)[cite: 19, 20].  If the
-   seed [cite_start]is compromised, all derived keys are irreversibly
-   exposed[cite: 21].
+   Deterministic key management schemes, such as BIP-32 *[BIP32]* and
+   BIP-39 *[BIP39]*, have simplified key recovery by deriving keys from
+   a single master seed.  However, these schemes rely on the long-term
+   persistent storage of that seed, which constitutes a single point of
+   failure (SPOF).  If the seed is compromised, all derived keys are
+   irreversibly exposed.
 
    This storage-centric design is ill-suited for Autonomous Digital
    Entities (ADEs), such as AI agents and IoT deployments, which require
-   identity continuity without centralized trust
-   [cite_start]anchors[cite: 22, 23].  ACE-GF addresses these challenges
-   by decoupling deterministic identity from long-term secret
-   [cite_start]storage[cite: 25].
+   identity continuity without centralized trust anchors *[DID-Core]*.
+   ACE-GF addresses these challenges by decoupling deterministic
+   identity from long-term secret storage, ensuring that the identity
+   root exists only ephemerally during the reconstruction process.
 
 1.2.  Core Contributions
 
@@ -203,23 +205,26 @@ Table of Contents
    Entities (ACE) with the following properties:
 
    *  *Seed-Storage-Free*: The identity root (REV) exists only
-      [cite_start]ephemerally in memory[cite: 29].
+      ephemerally in memory during active operations.
 
-   *  *Deterministic Reconstruction*: The REV is reconstructed
-      [cite_start]from a sealed artifact and authorization
-      credentials[cite: 30].
+   *  *Deterministic Reconstruction*: The REV is reconstructed from a
+      sealed artifact and authorization credentials.
 
    *  *Context Isolation*: Cryptographic keys are isolated across
-      algorithms (e.g., Ed25519, PQC) using explicit [cite_start]context
-      encoding[cite: 33].
+      algorithms (e.g., Ed25519, ML-DSA) using explicit context encoding
+      *[RFC5869]*.
 
-1.3.  Conventions and Terminology
+2.  Conventions and Terminology
+
+2.1.  Conventions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   14 *[RFC2119]* *[RFC8174]* when, and only when, they appear in all
    capitals, as shown here.
+
+2.2.  Terminology
 
    The following terms are used throughout this document:
 
@@ -241,14 +246,16 @@ Table of Contents
       loss of this ability renders the identity cryptographically
       unreachable.
 
-   *Context*  An explicit domain-separation parameter used by ACE-GF to
-      ensure that derived material for different purposes, algorithms,
-      or applications remains cryptographically isolated.
+   *Context*  An explicit domain-separation parameter, as defined in the
+      context of Key Derivation Functions *[NIST-SP800-108]*, used by
+      ACE-GF to ensure that derived material for different purposes,
+      algorithms, or applications remains cryptographically isolated.
 
-   *Rekeying*  The process of changing credentials associated with an
-      existing identity while preserving the underlying identity
-      semantics.  In ACE-GF, rekeying does not require persistent state
-      or regeneration of the identity.
+   *Rekeying*  The process of updating the authorization metadata
+      (Sealed Artifact) to associate new credentials with an existing
+      identity while preserving the underlying identity semantics.
+      Unlike traditional key rotation, ACE-GF rekeying does not modify
+      the underlying Root Entropy Value (REV).
 
    *Profile*  A specification that defines how ACE-GF is applied within
       a specific application domain.  Profiles may impose additional
@@ -261,13 +268,13 @@ Table of Contents
       profile is illustrative and does not constrain other applications
       of ACE-GF.
 
-2.  Protocol Overview
+3.  Protocol Overview
 
    This section provides a high-level, non-normative overview of the
    ACE-GF framework.  It establishes the mental model for the decoupled
    architecture before the detailed protocol specification in Section 4.
 
-2.1.  The Decoupled Identity Model
+3.1.  The Decoupled Identity Model
 
    ACE-GF operates on the principle of *Functional Decoupling*. Unlike
    traditional deterministic systems that require the persistent storage
@@ -283,7 +290,7 @@ Table of Contents
       cryptographic algorithms.  It defines the _substance_ of the
       identity.
 
-2.2.  Data Flow and Transformation
+3.2.  Data Flow and Transformation
 
    The following diagram illustrates how entropy flows from a raw state,
    through the authorization lock, and into algorithm-specific keys:
@@ -304,12 +311,12 @@ Table of Contents
                                          v
                               [ Algorithm-Specific Keys ]
 
-2.3.  Atomic Entity Lifecycle and States
+3.3.  Atomic Entity Lifecycle and States
 
    The lifecycle of an ACE is defined by the availability and
    reachability of the Root Entropy Value (REV).
 
-2.3.1.  Operational States
+3.3.1.  Operational States
 
       +=================+======================+====================+
       | State           | Description          | Persistence        |
@@ -333,7 +340,7 @@ Table of Contents
 
                                   Table 1
 
-2.3.2.  2.3.2.  Lifecycle Sequence
+3.3.2.  Lifecycle Sequence
 
    1.  *Generate*: A 256-bit REV is sampled from a CSPRNG.
 
@@ -350,7 +357,7 @@ Table of Contents
    5.  *Zeroize*: Once complete, the REV and all derived material are
        wiped from RAM.
 
-2.4.  Core Operations: Rekeying and Identity Unreachability
+3.4.  Core Operations: Rekeying and Identity Unreachability
 
    By decoupling authorization from identity, ACE-GF enables critical
    operations without changing underlying cryptographic identifiers
@@ -367,7 +374,7 @@ Table of Contents
       rendering the identity cryptographically unreachable without
       reliance on external revocation infrastructure.
 
-2.5.  2.5.  Local Call Sequence
+3.5.  Local Call Sequence
 
    The following sequence describes the typical interaction between an
    application ("Caller") and an ACE-GF implementation:
@@ -389,11 +396,11 @@ Table of Contents
      |<----- [Derived Key Material] -------|
      |----- 6. zeroize_memory() ---------->| (Wipe RAM)
 
-3.  Architecture and Design Principles
+4.  Architecture and Design Principles
 
    ACE-GF separates the identity lifecycle into two distinct pipelines:
 
-3.1.  Identity Pipeline
+4.1.  Identity Pipeline
 
    The identity pipeline manages the transformation from the REV to
    application-specific keys.  It utilizes a deterministic, one-way
@@ -402,7 +409,7 @@ Table of Contents
    Ed25519 signing key) does not leak information about the REV or other
    sibling keys.
 
-3.2.  Authorization Pipeline
+4.2.  Authorization Pipeline
 
    The authorization pipeline manages the secure "sealing" and
    "unsealing" of the REV.  By utilizing Argon2id for memory-hard key
@@ -410,17 +417,17 @@ Table of Contents
    framework ensures that the REV is only accessible when the correct
    Credential is provided.
 
-4.  Cryptographic Primitives
+5.  Cryptographic Primitives
 
    The ACE-GF framework relies on industry-proven cryptographic
    primitives.  Implementations MUST strictly adhere to the selection of
    these primitives to ensure deterministic consistency across different
    platforms and environments.
 
-4.1.  KDF1: Credential Hashing (Argon2id)
+5.1.  KDF1: Credential Hashing (Argon2id)
 
    To resist offline brute-force attacks, ACE-GF utilizes the Argon2id
-   algorithm [RFC9106] for stretching user-provided credentials (Cred)
+   algorithm *[RFC9106]* for stretching user-provided credentials (Cred)
    into a symmetric sealing key (K_seal).
 
    The specific mechanism by which auth_index is bound into the sealing
@@ -444,10 +451,16 @@ Table of Contents
       random salt and the 4-byte Big-Endian representation of the
       auth_index.
 
-4.2.  AEAD: Sealing Encryption (AES-GCM-SIV)
+   *  *Credential Encoding*: To ensure deterministic consistency across
+      different platforms and programming languages, the Authorization
+      Credential (Cred) MUST be encoded as a UTF-8 string *[RFC3629]*
+      before being provided as the password input to the Argon2id
+      function.
 
-   ACE-GF employs AES-GCM-SIV [RFC8452] for the authenticated encryption
-   of the Root Entropy Value (REV).
+5.2.  AEAD: Sealing Encryption (AES-GCM-SIV)
+
+   ACE-GF employs AES-GCM-SIV *[RFC8452]* for the authenticated
+   encryption of the Root Entropy Value (REV).
 
    AES-256-GCM-SIV is used exclusively for authorization sealing of the
    Root Entropy Value (REV).  It is not part of the Derive operation and
@@ -460,10 +473,12 @@ Table of Contents
       value, using a fixed 96-bit all-zero nonce (N_fixed) is safe under
       the assumption that the plaintext (REV) is a uniformly random,
       high-entropy value and that the sealing key is not reused for
-      arbitrary plaintexts.  This assumption holds only for the sealing
-      of a single, uniformly random REV per Sealed Artifact (SA) and
-      MUST NOT be extended to sealing arbitrary data or multiple
-      plaintexts under the same key.
+      arbitrary plaintexts.  This usage constitutes a restricted,
+      single-message sealing construction and MUST NOT be generalized
+      beyond the specific case defined in this document.  This
+      assumption holds only for the sealing of a single, uniformly
+      random REV per Sealed Artifact (SA) and MUST NOT be extended to
+      sealing arbitrary data or multiple plaintexts under the same key.
 
    *  *Security Assurance*: The use of AES-GCM-SIV prevents
       confidentiality leaks even in cases of nonce reuse, eliminating
@@ -477,8 +492,9 @@ Table of Contents
       the authorization metadata, the AEAD encryption MUST supply the
       first 10 bytes of the Sealed Artifact (SA) as Additional
       Authenticated Data.  This AAD string consists of the Magic Number
-      (4 bytes), Version (1 byte), ProfileID (1 byte), and auth_index (4
-      bytes).
+      (4 bytes), Version (1 byte), ProfileID (1 byte), and *the
+      Authorization Index (4 bytes)*. All multi-byte fields MUST be
+      encoded in Big-Endian (Network Byte Order).
 
    *  *Authenticated Metadata Binding*: Implementations MUST supply the
       Authorization Index (auth_index) as Additional Authenticated Data
@@ -487,10 +503,10 @@ Table of Contents
       unsealing.  Failure to bind auth_index via AAD constitutes a
       violation of this specification.
 
-4.3.  KDF2: Key Derivation (HKDF-SHA256)
+5.3.  KDF2: Key Derivation (HKDF-SHA256)
 
    For deriving algorithm-specific keys from the REV, ACE-GF utilizes
-   HKDF [RFC5869].
+   HKDF *[RFC5869]*.
 
    *  *Core Logic*: The standard Extract-then-Expand workflow is
       followed.
@@ -507,28 +523,28 @@ Table of Contents
       Index into the 'info' string, HKDF ensures that the resulting
       child keys are computationally independent.
 
-5.  Protocol Specification
+6.  Protocol Specification
 
    This section defines the operational procedures for the ACE-GF
    framework.  All cryptographic operations MUST follow the sequences
    described herein to maintain cross-platform interoperability.
 
-5.1.  Root Entropy Value (REV) Generation
+6.1.  Root Entropy Value (REV) Generation
 
    This operation generates the Root Entropy Value (REV), which serves
    as the atomic foundation of an ACE identity.
 
-5.1.1.  Inputs
+6.1.1.  Inputs
 
    *  None.
 
-5.1.2.  Outputs
+6.1.2.  Outputs
 
    *  *REV*: A freshly generated Root Entropy Value.
 
    *  *Error*: On failure.
 
-5.1.3.  Processing Requirements
+6.1.3.  Processing Requirements
 
    1.  The REV MUST be a 256-bit (32-byte) value.
 
@@ -538,22 +554,22 @@ Table of Contents
    3.  The REV MUST NOT be stored in persistent storage in plaintext
        form.  It MUST exist only in volatile memory during active use.
 
-5.1.4.  Error Conditions
+6.1.4.  Error Conditions
 
    *  *EntropyUnavailable*: A suitable CSPRNG is not available or fails
       to produce sufficient entropy.
 
-5.1.5.  Error Handling Requirements
+6.1.5.  Error Handling Requirements
 
    If REV generation fails, implementations MUST return an error and
    MUST NOT proceed with any sealing or derivation operations.
 
-5.2.  Sealing Process (Seal)
+6.2.  Sealing Process (Seal)
 
    The Sealing process transforms a Root Entropy Value (REV) into a
    persistent Sealed Artifact (SA) using an Authorization Credential.
 
-5.2.1.  Inputs
+6.2.1.  Inputs
 
    *  *REV*: The Root Entropy Value to be protected.
 
@@ -571,24 +587,27 @@ Table of Contents
    value is carried within the Sealed Artifact and SHOULD NOT require
    manual tracking by users.
 
-5.2.2.  Outputs
+6.2.2.  Outputs
 
    *  *Sealed Artifact (SA)*: A serialized artifact containing the
       encrypted REV, authorization metadata, and associated parameters.
 
    *  *Error*: On failure.
 
-5.2.3.  Processing Steps
+6.2.3.  Processing Steps
 
    1.  Generate or select a 128-bit random Salt.
 
-   2.  Derive the sealing key K_seal using Argon2id.  The salt parameter
-       input to Argon2id MUST be the 20-byte concatenation: Salt (16
-       bytes) || auth_index (4 bytes, Big-Endian).
+   2.  Derive the sealing key K_seal using Argon2id. *The Cred input
+       MUST be encoded as a UTF-8 string*. The salt parameter input to
+       Argon2id MUST be the 20-byte concatenation: Salt (16 bytes) ||
+       auth_index (4 bytes, Big-Endian).
 
    3.  Encrypt the REV using AES-256-GCM-SIV with K_seal and the fixed
        nonce N_fixed.  The AAD input MUST be the 10-byte sequence:
-       Magic || Version || ProfileID || auth_index.
+       Magic || Version || ProfileID || auth_index, where auth_index *is
+       serialized as a 32-bit unsigned integer in Big-Endian (Network
+       Byte Order)*.
 
    4.  Construct the Sealed Artifact (SA) by concatenating the Magic
        Number, Version, ProfileID, auth_index, Salt, Ciphertext, and
@@ -596,7 +615,7 @@ Table of Contents
 
    5.  Zeroize the REV from volatile memory after successful sealing.
 
-5.2.4.  Error Conditions
+6.2.4.  Error Conditions
 
    *  *InvalidREV*: The supplied REV does not meet length or format
       requirements.
@@ -609,18 +628,18 @@ Table of Contents
 
    *  *SealingFailure*: Encryption or key derivation fails.
 
-5.2.5.  Error Handling Requirements
+6.2.5.  Error Handling Requirements
 
    If sealing fails, implementations MUST return an error and MUST
    ensure that the REV and any intermediate key material are not
    retained in memory.
 
-5.3.  Unsealing Process (Unseal)
+6.3.  Unsealing Process (Unseal)
 
    The Unsealing process reconstructs the Root Entropy Value (REV) from
    a provided Sealed Artifact (SA) and Authorization Credential.
 
-5.3.1.  Inputs
+6.3.1.  Inputs
 
    *  *Sealed Artifact (SA)*: A serialized artifact containing the
       encrypted REV and associated metadata.
@@ -628,30 +647,30 @@ Table of Contents
    *  *Authorization Credential (Cred)*: User- or system-provided secret
       material required to derive the sealing key.
 
-5.3.2.  Outputs
+6.3.2.  Outputs
 
    *  *REV*: The reconstructed Root Entropy Value, on success.
 
    *  *Error*: On failure.
 
-5.3.3.  Processing Steps
+6.3.3.  Processing Steps
 
    1.  *Parse*: Extract the Magic Number, Version, ProfileID,
        auth_index, Salt, Ciphertext, and Authentication Tag from the SA.
        The Magic Number and Version MUST be validated.  Failure MUST
        result in InvalidFormat.
 
-   2.  *Derive*: Recompute the sealing key K_seal using the provided
-       Credential, extracted Salt, auth_index, and the parameters
-       associated with the ProfileID.
+   2.  *Derive*: Recompute the sealing key K_seal using the *UTF-8
+       encoded* Credential, extracted Salt, auth_index, and the
+       parameters associated with the ProfileID.
 
    3.  *Decrypt*: Execute AES-256-GCM-SIV decryption on the Ciphertext
        using K_seal, the fixed nonce N_fixed, and the Authentication
        Tag. The same Additional Authenticated Data (AAD) used during
-       sealing (auth_index, ProfileID, and Version) MUST be supplied.
-       Authentication failure MUST result in an error.
+       sealing (*constructed by concatenating Magic, Version, ProfileID,
+       and the Big-Endian encoded* auth_index) MUST be supplied.
 
-5.3.4.  Error Conditions
+6.3.4.  Error Conditions
 
    *  *AuthenticationFailure*: Authentication tag verification fails.
 
@@ -663,7 +682,7 @@ Table of Contents
    *  *AuthorizationMismatch*: The derived sealing key does not match
       the authorization metadata embedded in the SA.
 
-5.3.5.  Error Handling Requirements
+6.3.5.  Error Handling Requirements
 
    If any error occurs, implementations MUST return an error and MUST
    NOT release any portion of the decrypted REV.  Implementations SHOULD
@@ -671,13 +690,13 @@ Table of Contents
    differences that could leak information about the Credential or
    K_seal.
 
-5.4.  Key Derivation Function (Derive)
+6.4.  Key Derivation Function (Derive)
 
    The Derive operation deterministically produces algorithm-specific
    cryptographic key material from a reconstructed Root Entropy Value
    (REV).
 
-5.4.1.  Inputs
+6.4.1.  Inputs
 
    *  *REV*: The reconstructed Root Entropy Value.
 
@@ -686,13 +705,13 @@ Table of Contents
 
    *  *Output Length*: The required length of derived key material.
 
-5.4.2.  Outputs
+6.4.2.  Outputs
 
    *  *DerivedKey*: Algorithm-specific key material.
 
    *  *Error*: On failure.
 
-5.4.3.  Processing Steps
+6.4.3.  Processing Steps
 
    1.  Perform HKDF-Extract using the REV as the input key material
        (IKM) to produce a pseudorandom key (PRK).  The salt parameter
@@ -705,26 +724,26 @@ Table of Contents
    3.  Map the derived output to algorithm-specific key material
        according to the target algorithm's requirements.
 
-5.4.4.  Error Conditions
+6.4.4.  Error Conditions
 
    *  *InvalidContext*: The Context Tuple is malformed or unsupported.
 
    *  *DerivationFailure*: HKDF expansion fails or produces invalid
       output for the target algorithm.
 
-5.4.5.  Error Handling Requirements
+6.4.5.  Error Handling Requirements
 
    On failure, implementations MUST return an error and MUST NOT release
    partial or malformed key material.  The REV MUST remain protected in
    volatile memory and SHOULD be zeroized once derivation operations are
    complete.
 
-6.  Data Structures and Encodings
+7.  Data Structures and Encodings
 
-6.1.  Sealed Artifact (SA) Binary Format (Version 0x02)
+7.1.  Sealed Artifact (SA) Binary Format (Version 0x01)
 
    This section defines the binary encoding of the Sealed Artifact (SA)
-   for protocol version 0x02.  The SA encapsulates the encrypted Root
+   for protocol version 0x01.  The SA encapsulates the encrypted Root
    Entropy Value (REV) together with all metadata required for
    deterministic reconstruction.
 
@@ -732,7 +751,7 @@ Table of Contents
    Byte Order).  Implementations MUST reject any SA whose total length
    does not exactly match the expected length for the indicated Version.
 
-6.1.1.  SA Binary Layout (Version 0x02)
+7.1.1.  SA Binary Layout (Version 0x01)
 
         +========+========+==============+========================+
         | Offset | Length | Field        | Description            |
@@ -741,7 +760,7 @@ Table of Contents
         |        |        |              | 0x45 0x00 ("ACE\0")    |
         +--------+--------+--------------+------------------------+
         | 4      | 1      | Version      | Protocol version       |
-        |        |        |              | (0x02)                 |
+        |        |        |              | (0x01)                 |
         +--------+--------+--------------+------------------------+
         | 5      | 1      | ProfileID    | Identifier for Sealing |
         |        |        |              | Profile                |
@@ -763,7 +782,7 @@ Table of Contents
 
    *Total Length: 74 bytes*
 
-6.1.2.  Field Semantics
+7.1.2.  Field Semantics
 
    *  *auth_index*: The Authorization Index represents an authorization
       epoch associated with the Sealed Artifact.  Different values of
@@ -772,13 +791,7 @@ Table of Contents
       generated with different auth_index values are cryptographically
       independent and mutually non-decryptable.
 
-   *  *Backward Compatibility*: Version 0x01 Sealed Artifacts do not
-      contain an auth_index field.  Implementations MAY support Version
-      0x01 for backward compatibility but MUST NOT interpret missing
-      auth_index values as equivalent to any specific authorization
-      state.
-
-6.2.  Sealing Profiles
+7.2.  Sealing Profiles
 
    Sealing Profiles define the cost parameters for the Argon2id
    function.  This allows ACE-GF to scale from resource-constrained
@@ -801,7 +814,7 @@ Table of Contents
    The 'Paranoid' profile is RECOMMENDED for high-value administrative
    identities.
 
-6.3.  Context Labels
+7.3.  Context Labels
 
    To ensure computational independence between different cryptographic
    algorithms, the AlgID field in the Context Tuple MUST use the
@@ -813,25 +826,25 @@ Table of Contents
    and do not override algorithm-specific restrictions defined elsewhere
    in this document.
 
-6.3.1.  Algorithm Identifiers (AlgID)
+7.3.1.  Algorithm Identifiers (AlgID)
 
-             +========+=========================+===========+
-             | AlgID  | Algorithm Name          | Reference |
-             +========+=========================+===========+
-             | 0x0001 | Ed25519                 | RFC 8032  |
-             +--------+-------------------------+-----------+
-             | 0x0002 | Secp256k1 (ECDSA)       | SEC 2     |
-             +--------+-------------------------+-----------+
-             | 0x0003 | X25519 (Diffie-Hellman) | RFC 7748  |
-             +--------+-------------------------+-----------+
-             | 0x0004 | ML-DSA (Dilithium-PQC)  | FIPS 204  |
-             +--------+-------------------------+-----------+
-             | 0x0005 | ML-KEM (Kyber-PQC)      | FIPS 203  |
-             +--------+-------------------------+-----------+
+            +========+=========================+=============+
+            | AlgID  | Algorithm Name          | Reference   |
+            +========+=========================+=============+
+            | 0x0001 | Ed25519                 | *[RFC8032]* |
+            +--------+-------------------------+-------------+
+            | 0x0002 | Secp256k1 (ECDSA)       | *[SEC2]*    |
+            +--------+-------------------------+-------------+
+            | 0x0003 | X25519 (Diffie-Hellman) | *[RFC7748]* |
+            +--------+-------------------------+-------------+
+            | 0x0004 | ML-DSA (Dilithium-PQC)  | *[FIPS204]* |
+            +--------+-------------------------+-------------+
+            | 0x0005 | ML-KEM (Kyber-PQC)      | *[FIPS203]* |
+            +--------+-------------------------+-------------+
 
                                  Table 4
 
-6.3.2.  Usage Domains (Domain)
+7.3.2.  Usage Domains (Domain)
 
    The 8-bit Domain field separates keys by their functional intent:
 
@@ -843,13 +856,13 @@ Table of Contents
 
    *  *0x04 (Key Wrapping)*: Protecting other sub-keys.
 
-6.4.  Context Tuple Encoding
+7.4.  Context Tuple Encoding
 
    The Context Tuple (Ctx) is a compact, fixed-length binary structure
    used as the info parameter for HKDF expansion.  All fields are
    encoded in Big-Endian (Network Byte Order).
 
-6.4.1.  Context Tuple Binary Layout
+7.4.1.  Context Tuple Binary Layout
 
         +========+========+========+==============================+
         | Offset | Length | Field  | Description                  |
@@ -865,7 +878,7 @@ Table of Contents
 
    *Total Length: 7 bytes.*
 
-6.4.2.  Encoding Rules
+7.4.2.  Encoding Rules
 
    *  The AlgID field MUST correspond to a registered value in the ACE-
       GF Context Identifier Registry.
@@ -876,7 +889,7 @@ Table of Contents
       incremented to derive multiple independent keys within the same
       algorithm and domain.
 
-7.  Operational Considerations and Identity Lifecycle
+8.  Operational Considerations and Identity Lifecycle
 
    This section describes operational aspects of deploying and managing
    Atomic Cryptographic Entities (ACEs) using the ACE-GF framework.  It
@@ -892,7 +905,7 @@ Table of Contents
    cryptographic identifiers remain stable as long as the REV remains
    reachable.
 
-7.1.  Sealed Artifact Persistence and Mobility
+8.1.  Sealed Artifact Persistence and Mobility
 
    The Sealed Artifact (SA) is a persistent, encrypted authorization
    artifact, not a cryptographic root.  Possession of an SA alone does
@@ -910,7 +923,7 @@ Table of Contents
    authorization metadata and apply backup and redundancy strategies
    appropriate to their threat model.
 
-7.2.  Stateless Credential Rotation
+8.2.  Stateless Credential Rotation
 
    ACE-GF supports stateless credential rotation, allowing an entity to
    update its Authorization Credential (e.g., changing a password or
@@ -939,7 +952,7 @@ Table of Contents
    persistent state other than the updated SA is required, and no
    protocol- visible identity attributes are modified.
 
-7.3.  Logical Revocation via Authorization Index
+8.3.  Logical Revocation via Authorization Index
 
    ACE-GF defines _logical revocation_ as the ability to render a
    previously valid Sealed Artifact (SA) unusable without modifying the
@@ -950,7 +963,7 @@ Table of Contents
    preserving the identity itself and all derived cryptographic
    identifiers.
 
-7.3.1.  Mechanism
+8.3.1.  Mechanism
 
    Logical revocation is achieved by updating the Authorization Index
    (auth_index) and re-sealing the same REV:
@@ -970,7 +983,7 @@ Table of Contents
    derivation, any SA created under a prior authorization index becomes
    undecryptable once the active index changes.
 
-7.3.2.  Properties
+8.3.2.  Properties
 
    *  Logical revocation does not require regeneration of the REV.
 
@@ -983,7 +996,7 @@ Table of Contents
    *  The effect of logical revocation is immediate and purely
       cryptographic.
 
-7.3.3.  Scope and Policy
+8.3.3.  Scope and Policy
 
    This specification defines the cryptographic mechanism required to
    support logical revocation.  Policies governing authorization index
@@ -991,7 +1004,7 @@ Table of Contents
    procedures, and governance models are application-specific and out of
    scope.
 
-7.3.4.  Authorization Index Synchronization
+8.3.4.  Authorization Index Synchronization
 
    In multi-device or multi-instance deployments, applications are
    responsible for ensuring that the most recent Sealed Artifact is
@@ -1003,7 +1016,7 @@ Table of Contents
    does not define mechanisms for resolving concurrent authorization
    updates.
 
-7.4.  Failure Modes and Recovery Considerations
+8.4.  Failure Modes and Recovery Considerations
 
    Failure to reconstruct the REV may occur due to incorrect
    credentials, corrupted Sealed Artifacts, unsupported sealing
@@ -1018,7 +1031,7 @@ Table of Contents
    remains available.  Loss of all authorization inputs results in
    permanent unreachability of the REV.
 
-7.5.  Storage and Ephemeral State Considerations
+8.5.  Storage and Ephemeral State Considerations
 
    The Root Entropy Value (REV) is intended to exist only in volatile
    memory during active operations and MUST NOT be persistently stored.
@@ -1034,7 +1047,7 @@ Table of Contents
    such as Trusted Execution Environments (TEEs) are RECOMMENDED to
    reduce exposure risk during reconstruction and derivation operations.
 
-7.6.  Migration Considerations
+8.6.  Migration Considerations
 
    Existing cryptographic identities MAY be migrated into the ACE-GF
    framework by treating a legacy high-entropy private key as a Root
@@ -1045,13 +1058,13 @@ Table of Contents
    semantics and SHOULD clearly distinguish between natively generated
    ACE-GF identities and migrated identities when relevant.
 
-8.  Security Considerations
+9.  Security Considerations
 
    The security of the ACE-GF framework depends on the strength of the
    underlying cryptographic primitives and the rigor of the
    implementation environment.
 
-8.1.  Entropy Requirements for Credentials
+9.1.  Entropy Requirements for Credentials
 
    The security of the Sealed Artifact (SA) is directly proportional to
    the entropy of the Authorization Credential (Cred).
@@ -1068,30 +1081,72 @@ Table of Contents
    3.  *Machine-Generated Credentials*: For Autonomous Digital Entities
        (ADEs), credentials MUST be generated using a CSPRNG.
 
-8.2.  Side-Channel Protections and Memory Management
+9.2.  Protection of Volatile Memory and Memory Management
 
-   Since the Root Entropy Value (REV) is the "single source of truth"
-   for the entire identity, its exposure in volatile memory must be
-   strictly controlled.
+   Since the Root Entropy Value (REV) serves as the atomic foundation
+   for all derived identities, its exposure in volatile memory
+   constitutes a single point of failure.  An attacker capable of
+   observing the memory space of an active ACE-GF implementation could
+   compromise the entire identity hierarchy derived from that REV.
 
-8.2.1.  Trusted Execution Environments (TEE)
+9.2.1.  Isolated Execution Environments (IEE)
 
-   Implementations are STRONGLY RECOMMENDED to perform the Unsealing and
-   Derivation processes within a hardware-isolated Trusted Execution
-   Environment (e.g., Intel SGX, ARM TrustZone, or AWS Nitro Enclaves).
-   This ensures that even a compromised host OS cannot observe the REV
-   or the intermediate Sealing Key (K_seal).
+   It is STRONGLY RECOMMENDED that implementations perform the Unsealing
+   (Section 4.3) and Derivation (Section 4.4) operations within an
+   Isolated Execution Environment (IEE).  An IEE is a platform-provided
+   security boundary that ensures:
 
-8.2.2.  Memory Zeroization
+   *  *Memory Confidentiality*: Sensitive material, including the REV,
+      Authorization Credentials, and the Sealing Key (K_seal), MUST NOT
+      be observable by the host operating system, hypervisor, or other
+      unauthorized processes.
 
-   To prevent "cold boot" attacks or memory forensics, implementations
-   MUST ensure that: 1.  All memory buffers containing the REV, K_seal,
-   or raw Credentials are overwritten with zeros (Zeroization)
-   immediately after use. 2.  Memory pages used for these secrets SHOULD
-   be marked as non-swappable (e.g., using mlock on POSIX systems) to
-   prevent sensitive data from being written to a persistent swap file.
+   *  *Execution Integrity*: The cryptographic logic of ACE-GF MUST be
+      protected from unauthorized modification during runtime.
 
-8.3.  Resistance to Brute-Force Attacks
+   *  *Isolation Guarantee*: Even in the event of a total compromise of
+      the Host OS, the secrets within the IEE remain protected.
+
+   Implementations SHOULD leverage hardware-backed technologies to
+   satisfy these requirements.  Examples of such environments include,
+   but are not limited to: * *Hardware Enclaves*: Intel SGX, RISC-V
+   Keystone. * *Trust Zones*: ARM TrustZone. * *Virtualization-based
+   Security*: AWS Nitro Enclaves, Azure Confidential Computing (SNP/
+   TDX).
+
+9.2.2.  Memory Hardening and Zeroization
+
+   When a hardware-isolated IEE is unavailable, or as a defense-in-depth
+   measure within an IEE, implementations MUST adhere to the following
+   memory management principles to mitigate "cold boot" attacks or
+   memory forensics:
+
+   1.  *Zeroization*: All volatile memory buffers containing the REV,
+       K_seal, or raw Authorization Credentials MUST be overwritten with
+       zeros (Zeroized) immediately following the conclusion of an
+       operation or upon process termination.  Implementations MUST use
+       platform-specific mechanisms (e.g., memset_s in C, Zeroize trait
+       in Rust) to ensure that compilers do not optimize away these
+       routines.
+
+   2.  *Anti-Swapping*: Memory regions used for sensitive material
+       SHOULD be marked as non-swappable to prevent them from being
+       written to persistent storage (e.g., using mlock() on POSIX or
+       VirtualLock() on Windows).  This prevents secrets from being
+       leaked via swap files, core dumps, or hibernation images.
+
+   3.  *Side-Channel Mitigation*: Implementations MUST ensure that the
+       transformation logic, especially the handling of K_seal and REV,
+       is resistant to timing attacks and other micro-architectural
+       side-channels.  The use of constant-time cryptographic primitives
+       is REQUIRED.
+
+   4.  *Process Isolation*: ACE-GF operations SHOULD be executed in a
+       dedicated process with minimal privileges (least privilege
+       principle) to reduce the attack surface from other resident
+       applications.
+
+9.3.  Resistance to Brute-Force Attacks
 
    The use of Argon2id allows ACE-GF to scale its defense according to
    the threat model.  The following table provides a theoretical
@@ -1116,7 +1171,7 @@ Table of Contents
 
                                   Table 6
 
-8.4.  Post-Quantum Transition and Hybrid Security
+9.4.  Post-Quantum Transition and Hybrid Security
 
    ACE-GF is designed with "Algorithm Agility" to survive the transition
    to Post-Quantum Cryptography (PQC).
@@ -1131,11 +1186,12 @@ Table of Contents
        a single action.
 
    3.  *Future-Proofing REV*: Because the REV is a high-entropy
-       (256-bit) random value, it is considered "Quantum-Safe" against
-       Grover's algorithm, providing a 128-bit security margin even in a
-       post-quantum world.
+       (256-bit) random value, it provides an effective 128-bit preimage
+       security margin against generic quantum search attacks (e.g.,
+       Grover-style algorithms [Grover1996]), under standard complexity
+       assumptions.
 
-8.5.  Note on AES-GCM-SIV and Fixed Nonce
+9.5.  Note on AES-GCM-SIV and Fixed Nonce
 
    The use of a fixed all-zero nonce (N_fixed) in Section 4.2.2 is safe
    specifically because the plaintext being encrypted (the REV) is
@@ -1145,7 +1201,7 @@ Table of Contents
    underlying CTR mode, preventing the catastrophic key-stream reuse
    associated with standard AES-GCM.
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    This section describes a proposed registry structure.  Creation of
    IANA registries is contingent on the publication status of this
@@ -1157,14 +1213,14 @@ Table of Contents
    The following registries are defined for future extensibility of the
    ACE-GF framework.
 
-9.1.  ACE-GF Sealing Profile Registry
+10.1.  ACE-GF Sealing Profile Registry
 
    IANA is requested to create a new registry entitled "ACE-GF Sealing
    Profiles".  This registry manages the parameter sets for the
    credential hashing function (Argon2id).
 
    The registration policy for this registry is "Specification Required"
-   as defined in [RFC8126].
+   as defined in *[RFC8126]*.
 
    Initial entries for this registry are as follows:
 
@@ -1186,36 +1242,36 @@ Table of Contents
 
                                   Table 7
 
-9.2.  ACE-GF Context Identifier Registry
+10.2.  ACE-GF Context Identifier Registry
 
    IANA is requested to create a new registry entitled "ACE-GF Context
    Identifiers".  This registry manages the Algorithm Identifiers
    (AlgID) used in the key derivation context string.
 
    The registration policy for this registry is "Expert Review" as
-   defined in [RFC8126].
+   defined in *[RFC8126]*.
 
    Initial entries for this registry are as follows:
 
             +===============+====================+===========+
             | AlgID         | Algorithm Name     | Reference |
             +===============+====================+===========+
-            | 0x0001        | Ed25519            | RFC 8032  |
+            | 0x0001        | Ed25519            | [RFC8032] |
             +---------------+--------------------+-----------+
-            | 0x0002        | Secp256k1          | SEC 2     |
+            | 0x0002        | Secp256k1          | [SEC2]    |
             +---------------+--------------------+-----------+
-            | 0x0003        | X25519             | RFC 7748  |
+            | 0x0003        | X25519             | [RFC7748] |
             +---------------+--------------------+-----------+
-            | 0x0004        | ML-DSA (Dilithium) | FIPS 204  |
+            | 0x0004        | ML-DSA (Dilithium) | [FIPS204] |
             +---------------+--------------------+-----------+
-            | 0x0005        | ML-KEM (Kyber)     | FIPS 203  |
+            | 0x0005        | ML-KEM (Kyber)     | [FIPS203] |
             +---------------+--------------------+-----------+
             | 0x0006-0xFFFF | Unassigned         |           |
             +---------------+--------------------+-----------+
 
                                  Table 8
 
-9.3.  ACE-GF Usage Domain Registry
+10.3.  ACE-GF Usage Domain Registry
 
    IANA is requested to create a new registry entitled "ACE-GF Usage
    Domains".  This registry manages the 8-bit Domain field.
@@ -1236,23 +1292,24 @@ Table of Contents
 
                                   Table 9
 
-10.  Test Vectors
+11.  Test Vectors
 
    This section defines test vectors intended to verify the correctness
    and interoperability of ACE-GF implementations.
 
-   Unless otherwise stated, the test vectors in Sections 10.1 through
-   10.3 define normative behavior for conforming ACE-GF implementations.
-   Test vectors associated with specific Application Profiles are
-   informational unless explicitly required by that profile.
+   The test vectors in Sections 10.1 through 10.3 define normative
+   behavior with respect to input handling, parameter binding, and
+   deterministic reconstruction.  Ciphertext values are illustrative and
+   not required to match across implementations unless explicitly
+   specified.
 
    Certain encrypted outputs are omitted in this version and marked as
    TBD.  These vectors validate structure, parameter selection, and
    deterministic REV reconstruction rather than ciphertext equality.
 
-10.1.  Basic Protocol Test Vectors
+11.1.  Basic Protocol Test Vectors
 
-10.1.1.  Standard Sealing Profile
+11.1.1.  Standard Sealing Profile
 
    This test case uses the "Standard" Sealing Profile (0x02).
 
@@ -1265,14 +1322,14 @@ Table of Contents
    *  *REV*:
       f0e1d2c3b4a5968778695a4b3c2d1e0f00112233445566778899aabbccddeeff
 
-   *Output - Sealed Artifact (SA)*: 41434500 (Magic) 02 (Version) 02
+   *Output - Sealed Artifact (SA)*: 41434500 (Magic) 01 (Version) 02
    (ProfileID) 00000001 (auth_index) 0102030405060708090a0b0c0d0e0f10
    (Salt) [Insert 32-byte Hex Ciphertext here] [Insert 16-byte Hex Tag
    here]
 
-10.2.  Cross-Platform and Encoding Consistency
+11.2.  Cross-Platform and Encoding Consistency
 
-10.2.1.  UTF-8 Credential Handling
+11.2.1.  UTF-8 Credential Handling
 
    This test case ensures that non-ASCII credentials are handled
    consistently using UTF-8 encoding before the Argon2id process.
@@ -1285,9 +1342,9 @@ Table of Contents
 
    *Output - Reconstructed REV*: [Insert 32-byte Hex REV here]
 
-10.3.  Multi-Algorithm and Post-Quantum Derivation
+11.3.  Multi-Algorithm and Post-Quantum Derivation
 
-10.3.1.  Classical + PQC Key Derivation from a Single REV
+11.3.1.  Classical + PQC Key Derivation from a Single REV
 
    This test case demonstrates the generative nature of the framework by
    deriving keys for both classical and post-quantum algorithms from the
@@ -1296,7 +1353,7 @@ Table of Contents
    *  *REV*:
       603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4
 
-10.3.2.  Case A: Ed25519 Signing Key
+11.3.2.  Case A: Ed25519 Signing Key
 
    *  *AlgID*: 0x0001
 
@@ -1308,7 +1365,7 @@ Table of Contents
 
    *  *Derived Key (32 bytes)*: [Insert Hex Key here]
 
-10.3.3.  Case B: ML-KEM (Kyber) Key
+11.3.3.  Case B: ML-KEM (Kyber) Key
 
    *  *AlgID*: 0x0005
 
@@ -1320,9 +1377,9 @@ Table of Contents
 
    *  *Derived Key (64 bytes)*: [Insert Hex Key here]
 
-10.4.  Application Profile Test Vectors (Informational)
+11.4.  Application Profile Test Vectors (Informational)
 
-10.4.1.  Cryptocurrency Wallet Application Profile
+11.4.1.  Cryptocurrency Wallet Application Profile
 
    This section defines test vectors for the *ACE-GF Cryptocurrency
    Wallet Application Profile*.
@@ -1463,7 +1520,7 @@ Table of Contents
    ]
    }
 
-10.5.  10.5.  Interoperability Verification Guidance
+11.5.  10.5.  Interoperability Verification Guidance
 
    An implementation claiming conformance to this specification SHOULD
    verify interoperability as follows:
@@ -1485,43 +1542,69 @@ Table of Contents
    Successful verification across independent implementations indicates
    interoperability of the ACE-GF construction.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
-   [RFC2119] Bradner, S., "Key words for use in RFCs to Indicate
+   *[RFC2119]* Bradner, S., "Key words for use in RFCs to Indicate
    Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March
    1997.
 
-   [RFC8174] Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119
-   Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.
+   *[RFC3629]* Yergeau, F., "UTF-8, a transformation format of ISO
+   10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November 2003.
 
-   [RFC5869] Krawczyk, H. and P.  Eronen, "HMAC-based Extract-and-Expand
-   Key Derivation Function (HKDF)", RFC 5869, DOI 10.17487/RFC5869, May
-   2010.
+   *[RFC5869]* Krawczyk, H. and P.  Eronen, "HMAC-based Extract-and-
+   Expand Key Derivation Function (HKDF)", RFC 5869, DOI 10.17487/
+   RFC5869, May 2010.
 
-   [RFC8452] Gueron, S., Langley, A., and Y.  Lindell, "AES-GCM-SIV:
+   *[RFC8126]* Cotton, M., Leiba, B., and T.  Narten, "Guidelines for
+   Writing an IANA Considerations Section in RFCs", BCP 26, RFC 8126,
+   DOI 10.17487/RFC8126, June 2017.
+
+   *[RFC8174]* Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+   2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.
+
+   *[RFC8452]* Gueron, S., Langley, A., and Y.  Lindell, "AES-GCM-SIV:
    Nonce-Misuse-Resistant Authenticated Encryption", RFC 8452, DOI
    10.17487/RFC8452, April 2018.
 
-   [RFC9106] Biryukov, A., Dinu, D., and D.  Khovratovich, "Argon2
+   *[RFC9106]* Biryukov, A., Dinu, D., and D.  Khovratovich, "Argon2
    Memory-Hard Function for Password Hashing and Proof-of-Work
    Applications", RFC 9106, DOI 10.17487/RFC9106, September 2021.
 
-   [FIPS204] NIST, "Module-Lattice-Based Digital Signature Standard",
+   *[FIPS203]* NIST, "Module-Lattice-Based Key-Encapsulation Mechanism
+   Standard", FIPS PUB 203, August 2024.
+
+   *[FIPS204]* NIST, "Module-Lattice-Based Digital Signature Standard",
    FIPS PUB 204, August 2024.
 
-11.2.  Informative References
+   *[NIST-SP800-108]* Chen, L., "Recommendation for Key Derivation Using
+   Pseudorandom Functions", NIST Special Publication 800-108, October
+   2009.
 
-   [RFC8032] Josefsson, S. and I.  Liusvaara, "Edwards-Curve Digital
+12.2.  Informative References
+
+   *[BIP32]* Wuille, P., "Hierarchical Deterministic Wallets", February
+   2012.
+
+   *[BIP39]* Palatinus, M., et al., "Mnemonic code for generating
+   deterministic keys", 2013.
+
+   *[RFC8032]* Josefsson, S. and I.  Liusvaara, "Edwards-Curve Digital
    Signature Algorithm (EdDSA)", RFC 8032, DOI 10.17487/RFC8032, January
    2017.
 
-   [SEC2] Certicom Research, "SEC 2: Recommended Elliptic Curve Domain
+   *[RFC7748]* Langley, A., Hamburg, M., and S.  Turner, "Elliptic
+   Curves for Security", RFC 7748, DOI 10.17487/RFC7748, January 2016.
+
+   *[SEC2]* Certicom Research, "SEC 2: Recommended Elliptic Curve Domain
    Parameters", Version 2.0, January 2010.
 
-   [BIP32] Wuille, P., "Hierarchical Deterministic Wallets", February
-   2012.
+   *[DID-Core]* Drummond, R., et al., "Decentralized Identifiers (DIDs)
+   v1.0", W3C Recommendation, July 2022.
+
+   *[Grover1996]* Grover, L., "A Fast Quantum Mechanical Algorithm for
+   Database Search", 1996.
 
 Appendix A.  Implementation Considerations for Resource-Constrained
              Devices
@@ -1539,25 +1622,119 @@ Appendix A.  Implementation Considerations for Resource-Constrained
        UID to provide an additional layer of security even if the
        Credential is weak.
 
-Appendix B.  Python Reference Implementation
+Appendix B.  Illustrative Python Pseudocode
 
-   A simplified reference implementation of the ACE-GF derivation logic:
+   An illustrative pseudocode representation of the ACE-GF derivation
+   logic:
 
-import struct, hashlib
+B.1.  Note
+
+      *Note:* The following pseudocode is provided for explanatory
+      purposes only.  It omits error handling, memory zeroization, and
+      side-channel protections, and MUST NOT be used as a reference
+      implementation.  Conforming implementations MUST adhere to the
+      normative requirements specified elsewhere in this document.
+
+import struct
 from cryptography.hazmat.primitives.ciphers.aead import AESGCMSIV
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives import hashes
 
-def ace_seal_rev(rev, credential, salt_16, auth_index, profile=0x02):
+# --------------------------------------------------------------------
+# Pseudocode placeholder for Argon2id
+# --------------------------------------------------------------------
+def argon2id_kdf(password_bytes, salt_bytes, memory_mib, iterations, parallelism, out_len):
+    """
+    Pseudocode representation of Argon2id.
+    Implementations MUST use RFC 9106–compliant Argon2id.
+    """
+    # This function is a placeholder.
+    # A real implementation must call an Argon2id library.
+    raise NotImplementedError("Argon2id KDF placeholder")
+
+
+# --------------------------------------------------------------------
+# ACE-GF: Seal REV
+# --------------------------------------------------------------------
+def ace_seal_rev(
+    rev: bytes,
+    credential: str,
+    salt_16: bytes,
+    auth_index: int,
+    profile_id: int = 0x02,
+):
+    """
+    Seal a 32-byte Root Entropy Value (REV) into a Sealed Artifact (SA).
+    """
+
+    assert len(rev) == 32
+    assert len(salt_16) == 16
+
+    # --- Extend salt with auth_index (Big-Endian) ---
     extended_salt = salt_16 + struct.pack(">I", auth_index)
-    k_seal = hashlib.pbkdf2_hmac('sha256', credential.encode(), extended_salt, 100000)
 
-    aad = b"ACE\x00" + struct.pack(">BB I", 0x02, profile, auth_index)
-    return AESGCMSIV(k_seal).encrypt(b"\x00" * 12, rev, aad)
+# --- Select Argon2id parameters by profile ---
+    if profile_id == 0x01:      # Mobile
+        m, t, p = 64, 3, 1
+    elif profile_id == 0x02:    # Standard
+        m, t, p = 256, 4, 2
+    elif profile_id == 0x03:    # Paranoid
+        m, t, p = 1024, 8, 4
+    else:
+        raise ValueError("Unsupported Sealing Profile")
 
-def ace_derive_key(rev, alg_id, domain, index, length):
-    prk = hashlib.hkdf_extract(hashlib.sha256, rev, salt=b"\x00" * 32)
-    info = struct.pack(">H B I", alg_id, domain, index)
+    # --- Derive sealing key using Argon2id ---
+    k_seal = argon2id_kdf(
+        password_bytes=credential.encode("utf-8"),
+        salt_bytes=extended_salt,
+        memory_mib=m,
+        iterations=t,
+        parallelism=p,
+        out_len=32,  # 256-bit AES key
+    )
 
-    return hashlib.hkdf_expand(hashlib.sha256, prk, info, length)
+    # --- Construct Additional Authenticated Data (AAD) ---
+    # AAD = Magic || Version || ProfileID || auth_index
+    aad = b"ACE\x00" + struct.pack(">BBI", 0x01, profile_id, auth_index)
+
+    # --- Encrypt REV using AES-256-GCM-SIV ---
+    nonce = b"\x00" * 12  # Fixed nonce (restricted single-message usage)
+    aead = AESGCMSIV(k_seal)
+
+    ciphertext = aead.encrypt(nonce, rev, aad)
+
+    return ciphertext  # Ciphertext || Tag (library-defined layout)
+
+
+# --------------------------------------------------------------------
+# ACE-GF: Derive Algorithm-Specific Key Material
+# --------------------------------------------------------------------
+def ace_derive_key(
+    rev: bytes,
+    alg_id: int,
+    domain: int,
+    index: int,
+    length: int,
+):
+    """
+    Derive context-isolated key material from REV using HKDF-SHA256.
+    """
+
+    assert len(rev) == 32
+
+    # --- Context Tuple encoding ---
+    info = struct.pack(">HBI", alg_id, domain, index)
+
+    # --- HKDF Extract + Expand ---
+    hkdf = HKDF(
+        algorithm=hashes.SHA256(),
+        length=length,
+        salt=b"\x00" * 32,
+        info=info,
+    )
+
+    derived_key = hkdf.derive(rev)
+    return derived_key
 
 Appendix C.  Example Use Cases (Informational)
 
