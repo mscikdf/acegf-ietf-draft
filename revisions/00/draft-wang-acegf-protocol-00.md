@@ -4,7 +4,7 @@ abbrev: "ACE-GF"
 category: info
 
 ipr: trust200902
-docname: draft-wang-acegf-protocol-latest
+docname: draft-wang-acegf-protocol-00
 submissiontype: independent
 number:
 date:
